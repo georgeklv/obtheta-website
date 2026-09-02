@@ -45,15 +45,20 @@ const nationalFacts = [
   ['Chapters', 'ABET-accredited schools only'],
 ];
 
-// The campus leadership positions named in the paragraph below.
-const leadership = [
-  'Dearborn Campus Engineers',
-  'Association for Computing Machinery',
-  'InterFraternity Council',
-  'Student Government',
-  'Student Activities Board',
-  'SAE racing teams',
-];
+// Campus organizations where brothers hold positions. Logos supplied by the
+// chapter; names read from the marks themselves.
+const orgs = [
+  { slug: 'student-government', name: 'Student Government, UM-Dearborn', w: 200, h: 200 },
+  { slug: 'dearborn-campus-engineers', name: 'Dearborn Campus Engineers', w: 199, h: 200 },
+  { slug: 'dearborn-electric-racing', name: 'Dearborn Electric Racing', w: 298, h: 200 },
+  { slug: 'umd-racing', name: 'UMD Racing', w: 344, h: 200 },
+  { slug: 'masa-dearborn', name: 'MASA Dearborn', w: 658, h: 200 },
+  { slug: 'gdg-dearborn', name: 'Google Developer Group, UM-Dearborn', w: 1476, h: 200 },
+].map((o, i) => ({
+  ...o,
+  dur: (8 + (i % 5) * 1.6).toFixed(1),
+  delay: (-(i * 2.3) % 11).toFixed(1),
+}));
 
 const regions = [
   ['Delta', 'Case Western Reserve University'],
@@ -133,12 +138,27 @@ const regions = [
       </dl>
 
       <p>
-        Since its founding, the chapter has initiated over 240 members and has
-        become a prominent presence on campus, holding campus leadership
-        positions such as:
+        Since its founding, the chapter has initiated over 290 members and has
+        become a prominent presence on campus.
       </p>
-      <ul class="named-list">
-        {leadership.map((org) => <li>{org}</li>)}
+
+      <h3 class="logo-title" id="campus-orgs">Brothers lead across campus</h3>
+      <p class="org-note">
+        Omicron Beta brothers hold leadership positions in these campus
+        organizations.
+      </p>
+      <ul class="org-field" aria-labelledby="campus-orgs">
+        {orgs.map((o) => (
+          <li style={`--dur:${o.dur}s; --delay:${o.delay}s`}>
+            <img
+              src={`/img/orgs/${o.slug}.webp`}
+              alt={o.name}
+              width={o.w}
+              height={o.h}
+              loading="lazy"
+            />
+          </li>
+        ))}
       </ul>
       <p>
         Each semester, the chapter hosts professional, philanthropic, and social
@@ -340,23 +360,33 @@ const regions = [
   }
 
   /* Named list — a register, not bullets */
-  .named-list {
-    list-style: none;
-    margin: var(--sp-3) 0 0;
-    padding: 0;
-    max-width: 44rem;
-    display: grid;
-    gap: 0 var(--sp-5);
-  }
-  @media (min-width: 36rem) {
-    .named-list { grid-template-columns: 1fr 1fr; }
-  }
-  .named-list li {
+  .org-note {
+    margin-top: var(--sp-1);
     font-family: var(--font-head);
     font-size: var(--fs-ui);
-    font-weight: 500;
-    padding: 0.5rem 0;
-    border-bottom: var(--rule-hairline);
+    color: var(--tt-ink);
+  }
+  .org-field {
+    list-style: none;
+    margin: var(--sp-4) 0 0;
+    padding: var(--sp-4) 0 0;
+    border-top: var(--rule-hairline);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: var(--sp-5) var(--sp-6);
+    align-items: center;
+  }
+  .org-field li {
+    animation: drift var(--dur) ease-in-out var(--delay) infinite alternate;
+  }
+  .org-field img {
+    width: 100%;
+    height: 3.25rem;
+    object-fit: contain;
+    object-position: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .org-field li { animation: none; }
   }
 
   .logo-title {
@@ -396,9 +426,7 @@ const regions = [
   .logo-field :global(svg) {
     width: 100%;
     height: 2.25rem;
-    filter: brightness(0);
   }
-  .logo-field li:hover :global(svg) { filter: none; }
   @keyframes drift {
     0%   { transform: translate(0, 0) rotate(0deg); }
     25%  { transform: translate(6px, -14px) rotate(-1.2deg); }

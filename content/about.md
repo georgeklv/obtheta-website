@@ -30,7 +30,7 @@ of Omicron Beta's members has allowed the chapter to continue to grow with the
 support of the University of Michigan-Dearborn's College of Engineering and
 Computer Science.
 
-Since its founding, the chapter has initiated over 240 members and has become a
+Since its founding, the chapter has initiated over 290 members and has become a
 prominent presence on campus, holding campus leadership positions such as
 Dearborn Campus Engineers, Association for Computing Machinery, InterFraternity
 Council, Student Government, Student Activities Board, and SAE racing teams.
@@ -42,8 +42,8 @@ Robotics. They also volunteer on campus through various engineering programs and
 events. Members also enjoy taking part in social events including dinners,
 camping, and pick-up sports.
 
-<!-- NOTE: the old site says "over 240 members." The roster now has 287 entries
-     up to roll OB 291. Ask the chapter whether to update this figure. -->
+<!-- Figure updated to "over 290 members" on the chapter's instruction
+     (2026-09-02); 296 initiated to date, stated as 290+. -->
 
 ---
 

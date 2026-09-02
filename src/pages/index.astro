@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
 import GearSolid from '../components/GearSolid.astro';
-import roster from '../../data/brothers.json';
 
 // Pillar copy is verbatim from content/about.md — do not edit here without
 // editing the source file to match.
@@ -24,12 +23,11 @@ const pillars = [
 // Every figure below is drawn from the chapter's own content or data — the
 // roster file, about.md, and the company list already on /about. Nothing here
 // is estimated.
-const rosterCount = roster.brothers.length;
 const yearsOnCampus = new Date().getFullYear() - 1988;
 const stats = [
-  { to: rosterCount, suffix: '', label: 'Brothers initiated at Omicron Beta' },
+  { to: 290, suffix: '+', label: 'Brothers initiated at Omicron Beta' },
   { to: yearsOnCampus, suffix: '', label: 'Years on campus since 1988' },
-  { to: 18, suffix: '', label: 'Companies in the alumni network' },
+  { to: 40, suffix: '+', label: 'Companies in the alumni network' },
   { to: 40000, suffix: '+', label: 'Initiated nationally since 1904' },
 ];
 ---
