@@ -56,8 +56,24 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     </header>
 
     <section class="container rush-section" aria-labelledby="rushing-title">
-      <h2 id="rushing-title">{rushingTitle}</h2>
-      {rushingParas.map((p) => <p>{p}</p>)}
+      <div class="rush-intro">
+        <figure class="rush-flyer">
+          <a href="https://drive.google.com/file/d/16LDKj8M_E51f9mDFQR1jW9Mfru47l0RW/view">
+            <img
+              src="/img/rush-flyer-fall-2026.webp"
+              alt="Fall 2026 rush flyer listing all twelve events, September 5 through 25"
+              width="900"
+              height="1274"
+              loading="lazy"
+            />
+          </a>
+          <figcaption>The Fall 2026 flyer — tap it for the full-size version.</figcaption>
+        </figure>
+        <div class="rush-intro-text">
+          <h2 id="rushing-title">{rushingTitle}</h2>
+          {rushingParas.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
     </section>
 
     <section class="container rush-section" aria-labelledby="req-title">
@@ -84,10 +100,13 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
               <p class="cal-date">{fmtDate(e.date)}</p>
               <h3 class="cal-name">{e.name}</h3>
               <p class="cal-meta">
-                {fmtTime(e.time)} to {fmtTime(e.end)} — {e.location}
+                {e.time && e.end ? `${fmtTime(e.time)} to ${fmtTime(e.end)}` : 'Time TBD'}
               </p>
+              <p class="cal-meta">{e.location}</p>
               {e.blurb && <p class="cal-blurb">{e.blurb}</p>}
-              <p class="cal-dress">{e.dress === 'formal' ? 'Formal dress' : 'Casual dress'}</p>
+              {e.dress && (
+                <p class="cal-dress">{e.dress === 'formal' ? 'Formal dress' : 'Casual dress'}</p>
+              )}
             </li>
           ))}
         </ol>
@@ -128,8 +147,8 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     position: relative;
     overflow: clip;
     /* pull flush against nav and footer */
-    margin-bottom: calc(-1 * var(--sp-8));
-    padding-bottom: var(--sp-8);
+    margin-bottom: calc(-1 * var(--sp-7));
+    padding-bottom: var(--sp-7);
   }
   .rush-page p { color: var(--rush-fg); }
 
@@ -171,6 +190,26 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
   }
 
   .rush-section { margin-top: var(--sp-7); }
+  .rush-intro { display: grid; gap: var(--sp-5); }
+  @media (min-width: 48rem) {
+    .rush-intro {
+      grid-template-columns: minmax(14rem, 20rem) 1fr;
+      gap: var(--sp-6);
+      align-items: start;
+    }
+  }
+  .rush-flyer { margin: 0; }
+  .rush-flyer img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rush-rule);
+  }
+  .rush-flyer figcaption {
+    margin-top: var(--sp-1);
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    color: var(--tt-rule);
+  }
   .rush-section h2 {
     border-bottom: 2px solid var(--rush-accent);
     padding-bottom: var(--sp-2);

@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
+import GearSolid from '../components/GearSolid.astro';
+import GearTrain from '../components/GearTrain.astro';
 
 // Pillar copy is verbatim from content/about.md — do not edit here without
 // editing the source file to match.
@@ -24,6 +26,15 @@ const pillars = [
   description="The Omicron Beta chapter of Theta Tau, the co-ed professional engineering fraternity at the University of Michigan-Dearborn. Founded 1988."
 >
   <section class="hero">
+    <img
+      class="hero-bg"
+      src="/img/chapter-hero.webp"
+      alt=""
+      width="1290"
+      height="841"
+      fetchpriority="high"
+    />
+    <div class="hero-tint" aria-hidden="true"></div>
     <div class="hero-inner">
       <h1 class="wordmark">Theta&nbsp;Tau</h1>
       <p class="hero-line hero-line-1">
@@ -34,7 +45,7 @@ const pillars = [
       </p>
     </div>
     <div class="hero-gear" id="hero-gear" aria-hidden="true">
-      <Gear class="hero-gear-svg" />
+      <GearSolid class="hero-gear-svg" />
     </div>
   </section>
 
@@ -66,6 +77,8 @@ const pillars = [
       <a class="btn btn-outline" href="/rush/">Rush Fall 2026</a>
     </div>
   </section>
+
+  <GearTrain />
 </Base>
 
 <style>
@@ -76,8 +89,23 @@ const pillars = [
     display: flex;
     align-items: center;
     overflow: hidden;
+    background: var(--tt-garnet-dk);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-tint {
+    position: absolute;
+    inset: 0;
+    background: var(--tt-garnet);
+    mix-blend-mode: multiply;
   }
   .hero-inner {
+    position: relative;
     max-width: var(--container);
     width: 100%;
     margin-inline: auto;
@@ -91,11 +119,12 @@ const pillars = [
     letter-spacing: -0.02em;
     text-transform: uppercase;
     max-width: 9ch;
+    color: var(--tt-white);
   }
   .hero-line {
     font-family: var(--font-head);
     text-transform: uppercase;
-    color: var(--tt-black);
+    color: var(--tt-white);
     max-width: none;
   }
   .hero-line-1 {
@@ -109,7 +138,7 @@ const pillars = [
     font-size: clamp(0.75rem, 1.8vw, 0.875rem);
     font-weight: 500;
     letter-spacing: 0.14em;
-    color: var(--tt-ink);
+    color: var(--tt-rule);
   }
   .hero-gear {
     position: absolute;
@@ -119,11 +148,11 @@ const pillars = [
     width: var(--hero-gear-size);
     height: var(--hero-gear-size);
     --hero-gear-size: clamp(16rem, 45vmin, 34rem);
-    color: var(--tt-garnet);
     cursor: grab;
     touch-action: none;
   }
   .hero-gear.dragging { cursor: grabbing; }
+  .hero-gear:focus-visible { outline-color: var(--tt-white); }
   .hero-gear-svg { width: 100%; height: 100%; }
   @media (max-width: 47.9375rem) {
     .hero { align-items: flex-start; padding-top: var(--sp-6); }
@@ -194,6 +223,9 @@ const pillars = [
   @media (max-width: 47.9375rem) {
     .scroll-gear { display: none; }
   }
+
+  /* Train sits flush between the closer band and the footer */
+  :global(.site-footer) { margin-top: 0; }
 
   /* --- Closer band ------------------------------------------------ */
   .closer { background: var(--tt-garnet); }

@@ -46,6 +46,12 @@
   --gutter: clamp(1.25rem, 5vw, 4rem);
   --measure: 65ch;
 
+  /* Machined-gear illustration greys (client-requested; illustration only,
+     never for UI chrome or text) */
+  --gear-steel-1: #C9CBCE;
+  --gear-steel-2: #9DA1A6;
+  --gear-steel-3: #55585C;
+
   /* Rules */
   --rule-hairline: 1px solid var(--tt-rule);
   --rule-strong:   2px solid var(--tt-black);
