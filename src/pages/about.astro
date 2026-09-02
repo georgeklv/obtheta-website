@@ -19,8 +19,8 @@ const logos = companies.map(([slug, name], i) => ({
   svg: fs
     .readFileSync(`public/logos/${slug}.svg`, 'utf8')
     .replace('<svg', `<svg role="img" aria-label="${name}"`),
-  dur: (16 + (i % 7) * 2.3).toFixed(1),
-  delay: (-(i * 3.1) % 20).toFixed(1),
+  dur: (7 + (i % 7) * 1.4).toFixed(1),
+  delay: (-(i * 1.7) % 12).toFixed(1),
 }));
 
 // A document index — this page is a four-part chapter record, so the
@@ -101,7 +101,7 @@ const regions = [
       </p>
       <p class="section-link"><a href="/brothers/">Meet the brothers</a></p>
 
-      <h3 class="logo-title" id="work-here" data-reveal>We work here</h3>
+      <h3 class="logo-title" id="work-here">We work here</h3>
       <ul class="logo-field" aria-labelledby="work-here">
         {logos.map((l) => (
           <li style={`--dur:${l.dur}s; --delay:${l.delay}s`}>
@@ -123,7 +123,7 @@ const regions = [
         University of Michigan-Dearborn's College of Engineering and Computer
         Science.
       </p>
-      <dl class="facts" data-reveal>
+      <dl class="facts">
         {chapterFacts.map(([k, v]) => (
           <div class="fact">
             <dt>{k}</dt>
@@ -162,7 +162,7 @@ const regions = [
           and a strong fraternal bond, the fraternity has chapters only at
           ABET-accredited schools.
         </p>
-        <dl class="facts" data-reveal>
+        <dl class="facts">
           {nationalFacts.map(([k, v]) => (
             <div class="fact">
               <dt>{k}</dt>
@@ -344,18 +344,19 @@ const regions = [
     list-style: none;
     margin: var(--sp-3) 0 0;
     padding: 0;
-    max-width: 40rem;
-    columns: 2;
-    column-gap: var(--sp-5);
+    max-width: 44rem;
+    display: grid;
+    gap: 0 var(--sp-5);
   }
-  @media (max-width: 34rem) { .named-list { columns: 1; } }
+  @media (min-width: 36rem) {
+    .named-list { grid-template-columns: 1fr 1fr; }
+  }
   .named-list li {
     font-family: var(--font-head);
     font-size: var(--fs-ui);
     font-weight: 500;
     padding: 0.5rem 0;
     border-bottom: var(--rule-hairline);
-    break-inside: avoid;
   }
 
   .logo-title {
@@ -366,6 +367,7 @@ const regions = [
   }
 
   .section { margin-top: var(--sp-7); }
+  .section h2 { scroll-margin-top: 4.5rem; }
   .section h2 { margin-bottom: var(--sp-3); }
   .section p + p { margin-top: var(--sp-3); }
   .sub { margin: var(--sp-5) 0 var(--sp-2); }
@@ -390,7 +392,6 @@ const regions = [
   }
   .logo-field li {
     animation: drift var(--dur) ease-in-out var(--delay) infinite alternate;
-    will-change: transform;
   }
   .logo-field :global(svg) {
     width: 100%;
@@ -400,10 +401,10 @@ const regions = [
   .logo-field li:hover :global(svg) { filter: none; }
   @keyframes drift {
     0%   { transform: translate(0, 0) rotate(0deg); }
-    25%  { transform: translate(4px, -7px) rotate(-0.6deg); }
-    50%  { transform: translate(-3px, -3px) rotate(0.4deg); }
-    75%  { transform: translate(-5px, 6px) rotate(0.7deg); }
-    100% { transform: translate(3px, 4px) rotate(-0.3deg); }
+    25%  { transform: translate(6px, -14px) rotate(-1.2deg); }
+    50%  { transform: translate(-7px, -6px) rotate(0.9deg); }
+    75%  { transform: translate(-9px, 11px) rotate(1.4deg); }
+    100% { transform: translate(7px, 8px) rotate(-0.7deg); }
   }
   @media (prefers-reduced-motion: reduce) {
     .logo-field li { animation: none; }

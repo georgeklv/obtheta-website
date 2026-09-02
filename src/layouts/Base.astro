@@ -41,7 +41,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const reveals = document.querySelectorAll<HTMLElement>('[data-reveal]');
 
-      if (reveals.length && !reduced) {
+      if (reveals.length && !reduced && 'IntersectionObserver' in window) {
         document.documentElement.classList.add('reveal-ready');
         const io = new IntersectionObserver(
           (entries) => {
@@ -51,9 +51,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
               io.unobserve(e.target);
             }
           },
-          { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
+          /* Threshold 0 so tall sections trigger the moment any part enters;
+             the negative bottom margin holds the reveal until it is properly
+             on screen rather than one pixel past the fold. */
+          { rootMargin: '0px 0px -8% 0px', threshold: 0 }
         );
         reveals.forEach((el) => io.observe(el));
+
+        /* Failsafe: nothing may stay invisible. If anything has not revealed
+           a few seconds in, show it regardless. */
+        window.setTimeout(() => {
+          reveals.forEach((el) => el.classList.add('in'));
+        }, 3000);
       }
 
       /* Count-ups: [data-count-to] animates 0 -> target when scrolled into view. */
