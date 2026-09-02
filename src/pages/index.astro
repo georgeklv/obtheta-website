@@ -228,6 +228,11 @@ const stats = [
     container-type: inline-size;
     cursor: grab;
     touch-action: none;
+    /* Dragging across the gear would otherwise start a text selection and
+       flash the blue highlight over the hero. */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   .hero-gear.dragging { cursor: grabbing; }
   /* Only shown once the drag handler is actually wired up, so the hint never
@@ -539,8 +544,11 @@ const stats = [
       'aria-label',
       'The chapter gear. Drag it, or press the left and right arrow keys, to spin it.'
     );
+    // A slow constant turn is the affordance: a still gear reads as a
+    // graphic, a turning one invites the grab.
+    const IDLE = 0.2;   // rad/s, ~31s per revolution
     let angle = 0;      // radians
-    let vel = 0;        // rad/s
+    let vel = IDLE;     // rad/s
     let dragging = false;
     let lastPointerAngle = 0;
     let lastMoveTime = 0;
@@ -557,6 +565,10 @@ const stats = [
       ((a + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
 
     gear.addEventListener('pointerdown', (e) => {
+      // preventDefault stops the selection, but also suppresses the focus a
+      // click would normally give — restore it so the arrow keys still work.
+      e.preventDefault();
+      gear.focus();
       dragging = true;
       gear.classList.add('dragging');
       gear.setPointerCapture(e.pointerId);
@@ -591,9 +603,11 @@ const stats = [
     const spin = (t: number) => {
       const dt = lastFrame ? (t - lastFrame) / 1000 : 0;
       lastFrame = t;
-      if (!dragging && Math.abs(vel) > 0.02) {
+      if (!dragging && dt > 0) {
         angle += vel * dt;
-        vel *= Math.exp(-1.4 * dt); // friction
+        // Friction settles toward the idle turn rather than to a dead stop,
+        // so a flick decays back into the resting drift.
+        vel += (IDLE - vel) * (1 - Math.exp(-1.4 * dt));
         svg.style.transform = `rotate(${angle}rad)`;
       }
       requestAnimationFrame(spin);
