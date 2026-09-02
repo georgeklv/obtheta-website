@@ -65,6 +65,7 @@
 * { margin: 0; }
 html { -webkit-text-size-adjust: 100%; }
 body {
+  position: relative;
   background-color: var(--tt-paper);
   background-image: var(--paper-grid);
   background-repeat: repeat;
@@ -73,6 +74,24 @@ body {
   font-size: var(--fs-body);
   line-height: var(--lh-body);
 }
+/* Schematic wallpaper — public-domain patent drawings over the ruled ground.
+   Negative z-index puts it above the canvas background but below the block
+   backgrounds of every section, so the hero photo, the garnet bands and the
+   footer cover it without any per-section handling. */
+.paper-wall {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url('/img/schematics.webp');
+  background-repeat: repeat;
+  background-size: 1600px 1200px;
+  opacity: 0.16;
+}
+@media (max-width: 47.9375rem) {
+  .paper-wall { background-size: 1000px 750px; opacity: 0.13; }
+}
+
 img, svg { display: block; max-width: 100%; }
 img { height: auto; }
 button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
