@@ -41,7 +41,7 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     <header class="rush-hero container">
       <h1 class="rush-headline">{headline}</h1>
       <p class="rush-sub">
-        Theta Tau · Omicron Beta · University of Michigan-Dearborn
+        Omicron Beta Chapter, University of Michigan-Dearborn
       </p>
       <div class="rush-actions">
         {actions.map((a) => (
@@ -186,10 +186,10 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     max-width: var(--measure);
   }
   .req-list li {
-    padding: var(--sp-2) 0 var(--sp-2) var(--sp-3);
-    border-left: 2px solid var(--rush-accent);
+    padding: var(--sp-2) 0;
+    border-top: 1px solid var(--rush-rule);
   }
-  .req-list li + li { margin-top: var(--sp-2); }
+  .req-list li:last-child { border-bottom: 1px solid var(--rush-rule); }
 
   .cal-empty p { max-width: var(--measure); }
   .cal { list-style: none; margin: 0; padding: 0; max-width: 44rem; }
