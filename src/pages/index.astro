@@ -59,6 +59,7 @@ const stats = [
     </div>
     <div class="hero-gear" id="hero-gear" aria-hidden="true">
       <GearSolid class="hero-gear-svg" />
+      <span class="gear-hint">Hold to drag</span>
     </div>
   </section>
 
@@ -187,6 +188,27 @@ const stats = [
     touch-action: none;
   }
   .hero-gear.dragging { cursor: grabbing; }
+  /* Only shown once the drag handler is actually wired up, so the hint never
+     promises behaviour the page cannot deliver. */
+  .gear-hint {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.625rem);
+    left: 0;
+    right: 50%;
+    text-align: center;
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tt-white);
+    pointer-events: none;
+  }
+  .hero-gear.interactive .gear-hint { display: block; }
+  @media (max-width: 47.9375rem) {
+    .hero-gear.interactive .gear-hint { display: none; }
+  }
   .hero-gear:focus-visible { outline-color: var(--tt-white); }
   .hero-gear-svg { width: 100%; height: 100%; }
   @media (max-width: 47.9375rem) {
@@ -359,6 +381,7 @@ const stats = [
   const gear = document.getElementById('hero-gear');
   if (gear && !reduced) {
     const svg = gear.querySelector('svg')!;
+    gear.classList.add('interactive');
     gear.removeAttribute('aria-hidden');
     gear.setAttribute('role', 'img');
     gear.setAttribute('tabindex', '0');
