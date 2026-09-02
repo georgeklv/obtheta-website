@@ -49,6 +49,17 @@
   src: url('/fonts/source-serif-4-v14-latin-600italic.woff2') format('woff2');
 }
 
+/* Goku — hero wordmark only. Sourced via onlinewebfonts.com (served there
+   under CC BY 4.0 with credit to onlinewebfonts.com/fonts). Declared at
+   weight 700 so the wordmark matches this face exactly — no synthetic bold. */
+@font-face {
+  font-family: 'Goku';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/goku-regular.woff2') format('woff2');
+}
+
 /* Reset — small and boring on purpose */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
