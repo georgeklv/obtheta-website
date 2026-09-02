@@ -1,0 +1,291 @@
+---
+import Base from '../layouts/Base.astro';
+import roster from '../../data/brothers.json';
+
+// Executive board, in order of office. LinkedIn URLs and photographs have not
+// been supplied; the reveal pattern renders a link only when a URL exists.
+const eboard: { office: string; name: string; roll?: number; linkedin?: string }[] = [
+  { office: 'Regent', name: 'Charlie Felsburg', roll: 289 },
+  { office: 'Vice Regent', name: 'Jim Harding', roll: 274 },
+  { office: 'Marshal', name: 'Gavin Borbolla', roll: 283 },
+  { office: 'Scribe', name: 'Keegan Abbott', roll: 288 },
+  { office: 'Corresponding Secretary', name: 'Courtney Poppink' },
+];
+
+const brothers = roster.brothers;
+const total = brothers.length;
+const maxRoll = Math.max(...brothers.map((b) => b.roll));
+const PAGE = 20;
+---
+<Base
+  title="Brothers — Theta Tau, Omicron Beta"
+  description="The brothers of the Omicron Beta chapter of Theta Tau at UM-Dearborn: the executive board and the full chapter roster, rolls OB 1 to OB 291."
+>
+  <div class="page container">
+    <h1 class="page-title">Brothers</h1>
+
+    <section aria-labelledby="eboard-title">
+      <h2 id="eboard-title" class="section-title">Executive Board</h2>
+      <ul class="eboard">
+        {eboard.map((m, i) => (
+          <li class={`officer ${i < 2 ? 'officer-lg' : ''}`}>
+            <div class="photo-frame officer-photo">
+              <span>Photograph to come</span>
+            </div>
+            <h3 class="officer-name">{m.name}</h3>
+            <p class="officer-office">{m.office}</p>
+            {m.linkedin && (
+              <a class="officer-link" href={m.linkedin}>
+                LinkedIn<span class="visually-hidden"> — {m.name}</span>
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="roster-title">
+      <h2 id="roster-title" class="section-title">Roster</h2>
+      <p class="roster-count">
+        {total} brothers, rolls OB 1 to OB {maxRoll}.
+      </p>
+
+      <div class="roster-search">
+        <label for="roster-q">Search by name or roll</label>
+        <input id="roster-q" type="search" autocomplete="off" spellcheck="false" />
+      </div>
+
+      <p class="roster-empty" id="roster-empty" hidden>
+        No brothers match <q id="roster-empty-q"></q>.
+        <button type="button" class="roster-clear" id="roster-clear">Clear search</button>
+      </p>
+
+      <table class="roster" id="roster" data-page-size={PAGE}>
+        <thead>
+          <tr>
+            <th scope="col">Roll</th>
+            <th scope="col">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {brothers.map((b) => (
+            <tr data-roll={b.roll} data-name={b.name.toLowerCase()}>
+              <td class="roll">OB {b.roll}</td>
+              <td class="name">{b.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <nav class="pages" id="pages" aria-label="Roster pages"></nav>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .page { padding-top: var(--sp-6); }
+  .page-title {
+    font-size: var(--fs-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    border-bottom: var(--rule-strong);
+    padding-bottom: var(--sp-3);
+  }
+  .section-title { margin-top: var(--sp-6); }
+
+  /* --- Eboard: 2 + 3, hierarchy follows office ------------------- */
+  .eboard {
+    list-style: none;
+    margin: var(--sp-4) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--sp-4);
+  }
+  .officer { grid-column: span 2; }
+  .officer-lg { grid-column: span 3; }
+  .officer-photo { aspect-ratio: 1; min-height: 0; }
+  .officer-name { margin-top: var(--sp-2); }
+  .officer-office {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    color: var(--tt-ink);
+  }
+  .officer-link {
+    display: inline-block;
+    margin-top: var(--sp-1);
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+    color: var(--tt-garnet);
+  }
+  /* Reveal on hover and on focus; always present on touch */
+  @media (hover: hover) {
+    .officer-link { opacity: 0; }
+    .officer:hover .officer-link,
+    .officer-link:focus-visible { opacity: 1; }
+  }
+  @media (max-width: 47.9375rem) {
+    .eboard { grid-template-columns: 1fr 1fr; }
+    .officer, .officer-lg { grid-column: span 1; }
+    .officer-lg { grid-column: span 2; }
+  }
+
+  /* --- Roster: a register ---------------------------------------- */
+  .roster-count {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    color: var(--tt-ink);
+    margin-top: var(--sp-1);
+  }
+  .roster-search {
+    margin-top: var(--sp-4);
+    display: grid;
+    gap: var(--sp-1);
+    max-width: 24rem;
+  }
+  .roster-search label {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+  }
+  .roster-search input {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--tt-black);
+    border-radius: 0;
+    background: var(--tt-white);
+  }
+  .roster-empty { margin-top: var(--sp-4); }
+  .roster-clear {
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--tt-garnet);
+    text-decoration: underline;
+    margin-left: 0.5rem;
+  }
+  .roster {
+    width: 100%;
+    margin-top: var(--sp-4);
+    border-collapse: collapse;
+  }
+  .roster th {
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    padding: 0 0 var(--sp-1);
+    border-bottom: var(--rule-strong);
+  }
+  .roster td {
+    padding: 0.625rem 0;
+    border-bottom: var(--rule-hairline);
+  }
+  .roll {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    width: 7rem;
+    white-space: nowrap;
+  }
+  .name { font-size: var(--fs-body); }
+  tr[hidden] { display: none; }
+
+  /* --- Pagination ------------------------------------------------- */
+  .pages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-1);
+    margin-top: var(--sp-4);
+  }
+  .pages button {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+    min-width: 2.25rem;
+    padding: 0.375rem 0.5rem;
+    border: 1px solid var(--tt-black);
+    background: var(--tt-white);
+    font-variant-numeric: tabular-nums;
+  }
+  .pages button[aria-current='page'] {
+    background: var(--tt-garnet);
+    border-color: var(--tt-garnet);
+    color: var(--tt-white);
+  }
+  .pages button:hover:not([aria-current='page']) {
+    background: var(--tt-black);
+    color: var(--tt-white);
+  }
+</style>
+
+<script>
+  const table = document.getElementById('roster') as HTMLTableElement;
+  const rows = Array.from(table.tBodies[0].rows);
+  const pageSize = Number(table.dataset.pageSize);
+  const pagesNav = document.getElementById('pages')!;
+  const input = document.getElementById('roster-q') as HTMLInputElement;
+  const empty = document.getElementById('roster-empty')!;
+  const emptyQ = document.getElementById('roster-empty-q')!;
+  const clearBtn = document.getElementById('roster-clear')!;
+
+  let page = 0;
+
+  const render = () => {
+    const q = input.value.trim().toLowerCase();
+    const matches = q
+      ? rows.filter(
+          (r) => r.dataset.name!.includes(q) || r.dataset.roll!.includes(q)
+        )
+      : rows;
+
+    rows.forEach((r) => (r.hidden = true));
+    if (q) {
+      // A search shows every match at once; paging applies to the full register.
+      matches.forEach((r) => (r.hidden = false));
+      pagesNav.hidden = true;
+    } else {
+      const start = page * pageSize;
+      matches.slice(start, start + pageSize).forEach((r) => (r.hidden = false));
+      pagesNav.hidden = false;
+      renderPager(Math.ceil(matches.length / pageSize));
+    }
+
+    const none = q !== '' && matches.length === 0;
+    empty.hidden = !none;
+    emptyQ.textContent = q;
+    table.hidden = none;
+  };
+
+  const renderPager = (count: number) => {
+    pagesNav.replaceChildren(
+      ...Array.from({ length: count }, (_, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = String(i + 1);
+        b.setAttribute('aria-label', `Page ${i + 1}`);
+        if (i === page) b.setAttribute('aria-current', 'page');
+        b.addEventListener('click', () => {
+          page = i;
+          render();
+          table.scrollIntoView();
+        });
+        return b;
+      })
+    );
+  };
+
+  input.addEventListener('input', () => {
+    page = 0;
+    render();
+  });
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    render();
+    input.focus();
+  });
+  render();
+</script>
