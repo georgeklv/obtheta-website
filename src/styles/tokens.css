@@ -12,6 +12,11 @@
   --tt-ink:       #2E2E2E;
   --tt-rule:      #D8D6D4;
 
+  /* Page ground — engineering paper. Deliberately lighter and less saturated
+     than a cream; the grid does the work, not the tint. */
+  --tt-paper:     #FAF9F6;
+  --paper-grid:   url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Cpath d%3D%22M16 0V80M0 16H80M32 0V80M0 32H80M48 0V80M0 48H80M64 0V80M0 64H80%22 stroke%3D%22%23B9B3A6%22 stroke-width%3D%220.5%22 opacity%3D%220.30%22 fill%3D%22none%22%2F%3E%3Cpath d%3D%22M0 0V80M0 0H80%22 stroke%3D%22%23AFA89A%22 stroke-width%3D%220.9%22 opacity%3D%220.42%22 fill%3D%22none%22%2F%3E%3C%2Fsvg%3E");
+
   /* Type — families */
   --font-wordmark: 'Goku', 'Archivo', sans-serif;          /* hero only */
   --font-head:     'Archivo', 'Helvetica Neue', Arial, sans-serif;
