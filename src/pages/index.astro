@@ -1,8 +1,308 @@
 ---
 import Base from '../layouts/Base.astro';
+import Gear from '../components/Gear.astro';
+
+// Pillar copy is verbatim from content/about.md — do not edit here without
+// editing the source file to match.
+const pillars = [
+  {
+    name: 'Service',
+    copy: 'We are known for our service to our college, university, and the larger community. Our service projects create a unifying environment for learning and personal growth for our members.',
+  },
+  {
+    name: 'Profession',
+    copy: 'We develop and nurture engineers with strong communication, problem-solving, collaboration, and leadership skills that we demonstrate in our profession, our community, and in our lives.',
+  },
+  {
+    name: 'Brotherhood',
+    copy: 'We forge lifelong bonds of fraternal friendship, a journey that develops and delivers a network of lasting personal and professional relationships. We foster an inviting, safe, and social environment in which our members become lifelong friends.',
+  },
+];
 ---
 <Base
   title="Theta Tau — Omicron Beta | UM-Dearborn"
   description="The Omicron Beta chapter of Theta Tau, the co-ed professional engineering fraternity at the University of Michigan-Dearborn. Founded 1988."
 >
+  <section class="hero">
+    <div class="hero-inner">
+      <h1 class="wordmark">Theta&nbsp;Tau</h1>
+      <p class="hero-line hero-line-1">
+        Professional Engineering Fraternity · Omicron Beta Chapter
+      </p>
+      <p class="hero-line hero-line-2">
+        University of Michigan-Dearborn · Founded 1988
+      </p>
+    </div>
+    <div class="hero-gear" id="hero-gear">
+      <Gear class="hero-gear-svg" />
+    </div>
+  </section>
+
+  <section class="pillars" id="pillars" aria-label="The three pillars">
+    {pillars.map((p, i) => (
+      <article class={`band ${i % 2 === 1 ? 'band-flip' : ''}`}>
+        <div class="band-photo">
+          <div class="photo-frame">
+            <span>Photograph to come — {p.name}</span>
+          </div>
+        </div>
+        <div class="band-text">
+          <h2 class="pillar-name">{p.name}</h2>
+          <p>{p.copy}</p>
+        </div>
+      </article>
+    ))}
+    <div class="scroll-gear" id="scroll-gear" aria-hidden="true">
+      <span class="scroll-gear-tick"></span>
+      <Gear class="scroll-gear-svg" />
+    </div>
+  </section>
+
+  <section class="closer on-dark">
+    <div class="closer-inner">
+      <p class="closer-line">
+        Theta Tau is a Co-Ed Professional Engineering Fraternity.
+      </p>
+      <a class="btn btn-outline" href="/rush/">Rush Fall 2026</a>
+    </div>
+  </section>
 </Base>
+
+<style>
+  /* --- Hero ------------------------------------------------------- */
+  .hero {
+    position: relative;
+    min-height: calc(100svh - 3.5rem);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: var(--container);
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .wordmark {
+    font-family: var(--font-wordmark);
+    font-weight: 700;
+    font-size: var(--fs-wordmark);
+    line-height: var(--lh-tight);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    max-width: 9ch;
+  }
+  .hero-line {
+    font-family: var(--font-head);
+    text-transform: uppercase;
+    color: var(--tt-black);
+    max-width: none;
+  }
+  .hero-line-1 {
+    margin-top: var(--sp-4);
+    font-size: clamp(0.8125rem, 2.2vw, 1.0625rem);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+  }
+  .hero-line-2 {
+    margin-top: var(--sp-1);
+    font-size: clamp(0.75rem, 1.8vw, 0.875rem);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--tt-ink);
+  }
+  .hero-gear {
+    position: absolute;
+    right: calc(-0.5 * var(--hero-gear-size));
+    top: 50%;
+    margin-top: calc(-0.5 * var(--hero-gear-size));
+    width: var(--hero-gear-size);
+    height: var(--hero-gear-size);
+    --hero-gear-size: clamp(16rem, 45vmin, 34rem);
+    color: var(--tt-garnet);
+    cursor: grab;
+    touch-action: none;
+  }
+  .hero-gear.dragging { cursor: grabbing; }
+  .hero-gear-svg { width: 100%; height: 100%; }
+  @media (max-width: 47.9375rem) {
+    .hero { align-items: flex-start; padding-top: var(--sp-6); }
+    .hero-gear {
+      top: auto;
+      bottom: calc(-0.25 * var(--hero-gear-size));
+      margin-top: 0;
+    }
+  }
+
+  /* --- Pillars ---------------------------------------------------- */
+  .pillars { position: relative; }
+  .band {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 88svh;
+    border-top: var(--rule-hairline);
+  }
+  .band-photo { display: grid; }
+  .band-photo .photo-frame { border-block: none; min-height: 20rem; }
+  .band:not(.band-flip) .band-photo .photo-frame { border-left: none; }
+  .band-flip .band-photo .photo-frame { border-right: none; }
+  .band-text {
+    align-self: center;
+    padding: var(--sp-7) var(--gutter);
+  }
+  .band-flip .band-photo { order: 2; }
+  .band-flip .band-text { justify-self: end; }
+  .pillar-name {
+    font-size: var(--fs-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: var(--lh-tight);
+  }
+  .band-text p {
+    margin-top: var(--sp-4);
+    max-width: 34rem;
+  }
+  @media (max-width: 47.9375rem) {
+    .band { grid-template-columns: 1fr; min-height: 0; }
+    .band-flip .band-photo { order: 0; }
+    .band-text { padding: var(--sp-5) var(--gutter) var(--sp-6); }
+    .band-photo .photo-frame { min-height: 14rem; }
+  }
+
+  /* --- Scroll gear — a dial that reads scroll progress ------------ */
+  .scroll-gear {
+    position: fixed;
+    left: 0.75rem;
+    top: 50%;
+    width: 4rem;
+    height: 4rem;
+    margin-top: -2rem;
+    color: var(--tt-black);
+    visibility: hidden;
+  }
+  .scroll-gear.live { visibility: visible; }
+  .scroll-gear-tick {
+    position: absolute;
+    left: 50%;
+    top: -0.5rem;
+    width: 2px;
+    height: 0.375rem;
+    margin-left: -1px;
+    background: var(--tt-garnet);
+  }
+  .scroll-gear-svg { width: 100%; height: 100%; }
+  @media (max-width: 47.9375rem) {
+    .scroll-gear { display: none; }
+  }
+
+  /* --- Closer band ------------------------------------------------ */
+  .closer { background: var(--tt-garnet); }
+  .closer-inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: var(--sp-7) var(--gutter);
+  }
+  .closer-line {
+    color: var(--tt-white);
+    font-size: clamp(1.375rem, 3vw, 2rem);
+    font-weight: 600;
+    max-width: 24ch;
+    margin-bottom: var(--sp-5);
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Draggable hero gear — grab, spin, momentum, friction. */
+  const gear = document.getElementById('hero-gear');
+  if (gear && !reduced) {
+    const svg = gear.querySelector('svg')!;
+    let angle = 0;      // radians
+    let vel = 0;        // rad/s
+    let dragging = false;
+    let lastPointerAngle = 0;
+    let lastMoveTime = 0;
+    let lastFrame = 0;
+
+    const pointerAngle = (e: PointerEvent) => {
+      const r = gear.getBoundingClientRect();
+      return Math.atan2(
+        e.clientY - (r.top + r.height / 2),
+        e.clientX - (r.left + r.width / 2)
+      );
+    };
+    const norm = (a: number) =>
+      ((a + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
+
+    gear.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      gear.classList.add('dragging');
+      gear.setPointerCapture(e.pointerId);
+      lastPointerAngle = pointerAngle(e);
+      lastMoveTime = performance.now();
+      vel = 0;
+    });
+    gear.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const now = performance.now();
+      const a = pointerAngle(e);
+      const d = norm(a - lastPointerAngle);
+      angle += d;
+      const dt = (now - lastMoveTime) / 1000;
+      if (dt > 0) vel = d / dt;
+      lastPointerAngle = a;
+      lastMoveTime = now;
+      svg.style.transform = `rotate(${angle}rad)`;
+    });
+    const release = () => {
+      dragging = false;
+      gear.classList.remove('dragging');
+    };
+    gear.addEventListener('pointerup', release);
+    gear.addEventListener('pointercancel', release);
+
+    const spin = (t: number) => {
+      const dt = lastFrame ? (t - lastFrame) / 1000 : 0;
+      lastFrame = t;
+      if (!dragging && Math.abs(vel) > 0.02) {
+        angle += vel * dt;
+        vel *= Math.exp(-1.4 * dt); // friction
+        svg.style.transform = `rotate(${angle}rad)`;
+      }
+      requestAnimationFrame(spin);
+    };
+    requestAnimationFrame(spin);
+  }
+
+  /* Scroll gear — one third of a turn per pillar. */
+  const dial = document.getElementById('scroll-gear');
+  const pillarsEl = document.getElementById('pillars');
+  if (dial && pillarsEl) {
+    const dialSvg = dial.querySelector('svg')!;
+    const io = new IntersectionObserver(
+      ([entry]) => dial.classList.toggle('live', entry.isIntersecting),
+      { rootMargin: '-15% 0px -15% 0px' }
+    );
+    io.observe(pillarsEl);
+
+    if (!reduced) {
+      let ticking = false;
+      const update = () => {
+        ticking = false;
+        const rect = pillarsEl.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const total = rect.height - vh;
+        const p = Math.min(1, Math.max(0, -rect.top / (total > 0 ? total : 1)));
+        dialSvg.style.transform = `rotate(${p * 360}deg)`;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      }, { passive: true });
+      update();
+    }
+  }
+</script>
