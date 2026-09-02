@@ -1,7 +1,7 @@
 {
   "chapter": "Omicron Beta",
   "source": "chapter roster supplied by user",
-  "count": 287,
+  "count": 292,
   "missingRolls": [
     7,
     179,
@@ -1162,6 +1162,26 @@
     {
       "roll": 291,
       "name": "Ralph Steinbrenner"
+    },
+    {
+      "roll": 292,
+      "name": "Josiah Carey"
+    },
+    {
+      "roll": 293,
+      "name": "Trifun Djukic"
+    },
+    {
+      "roll": 294,
+      "name": "George Kolev"
+    },
+    {
+      "roll": 295,
+      "name": "Andrew Mark"
+    },
+    {
+      "roll": 296,
+      "name": "Courtney Poppink"
     }
   ]
 }
