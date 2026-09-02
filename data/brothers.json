@@ -1,0 +1,1167 @@
+{
+  "chapter": "Omicron Beta",
+  "source": "chapter roster supplied by user",
+  "count": 287,
+  "missingRolls": [
+    7,
+    179,
+    238,
+    243
+  ],
+  "brothers": [
+    {
+      "roll": 1,
+      "name": "Mark Holzhauer"
+    },
+    {
+      "roll": 2,
+      "name": "Jeff Beil"
+    },
+    {
+      "roll": 3,
+      "name": "Matt Charnecki"
+    },
+    {
+      "roll": 4,
+      "name": "John Feiler"
+    },
+    {
+      "roll": 5,
+      "name": "Peter Haniak"
+    },
+    {
+      "roll": 6,
+      "name": "Mike Klein"
+    },
+    {
+      "roll": 8,
+      "name": "John McCormick"
+    },
+    {
+      "roll": 9,
+      "name": "Erol Selamet"
+    },
+    {
+      "roll": 10,
+      "name": "Don Caruana"
+    },
+    {
+      "roll": 11,
+      "name": "Blase Casillas"
+    },
+    {
+      "roll": 12,
+      "name": "Larry Foreman"
+    },
+    {
+      "roll": 13,
+      "name": "Anupinder Hazra"
+    },
+    {
+      "roll": 14,
+      "name": "Tom Kowalski"
+    },
+    {
+      "roll": 15,
+      "name": "Rob Kuczajda"
+    },
+    {
+      "roll": 16,
+      "name": "Chris Roosen"
+    },
+    {
+      "roll": 17,
+      "name": "Dave Rousseau"
+    },
+    {
+      "roll": 18,
+      "name": "Jim Brandon"
+    },
+    {
+      "roll": 19,
+      "name": "Jeff Exell"
+    },
+    {
+      "roll": 20,
+      "name": "Jeff Kelley"
+    },
+    {
+      "roll": 21,
+      "name": "Chris Manross"
+    },
+    {
+      "roll": 22,
+      "name": "Dave Rasmussen"
+    },
+    {
+      "roll": 23,
+      "name": "Russ Atassi"
+    },
+    {
+      "roll": 24,
+      "name": "Paul Bonell"
+    },
+    {
+      "roll": 25,
+      "name": "John Guenther"
+    },
+    {
+      "roll": 26,
+      "name": "Mike Morris"
+    },
+    {
+      "roll": 27,
+      "name": "Algis Nemanis"
+    },
+    {
+      "roll": 28,
+      "name": "Matt Deloge"
+    },
+    {
+      "roll": 29,
+      "name": "George Denison"
+    },
+    {
+      "roll": 30,
+      "name": "Paul Klimek"
+    },
+    {
+      "roll": 31,
+      "name": "Tom Kociuba"
+    },
+    {
+      "roll": 32,
+      "name": "Chris Maloney"
+    },
+    {
+      "roll": 33,
+      "name": "Craig MacBrien",
+      "reviewNote": "source 'MACBRIEN' - confirm MacBrien vs Macbrien"
+    },
+    {
+      "roll": 34,
+      "name": "Isaac Rousso"
+    },
+    {
+      "roll": 35,
+      "name": "Roger Toupin"
+    },
+    {
+      "roll": 36,
+      "name": "Tuan Tran"
+    },
+    {
+      "roll": 37,
+      "name": "Dave Zink"
+    },
+    {
+      "roll": 38,
+      "name": "Doug Donakowski"
+    },
+    {
+      "roll": 39,
+      "name": "Maher Ghazzi"
+    },
+    {
+      "roll": 40,
+      "name": "Bob Gendron"
+    },
+    {
+      "roll": 41,
+      "name": "Rick Lowisz"
+    },
+    {
+      "roll": 42,
+      "name": "Richard Neumann"
+    },
+    {
+      "roll": 43,
+      "name": "Bob Oaks"
+    },
+    {
+      "roll": 44,
+      "name": "Ruben Ortiz"
+    },
+    {
+      "roll": 45,
+      "name": "Alex Li"
+    },
+    {
+      "roll": 46,
+      "name": "Michael Jordan"
+    },
+    {
+      "roll": 47,
+      "name": "Dave Kaitschuck"
+    },
+    {
+      "roll": 48,
+      "name": "Brian Stokely"
+    },
+    {
+      "roll": 49,
+      "name": "Ken Sroka"
+    },
+    {
+      "roll": 50,
+      "name": "Ken Altizer"
+    },
+    {
+      "roll": 51,
+      "name": "Brad Grupczynski"
+    },
+    {
+      "roll": 52,
+      "name": "Anthony Neam"
+    },
+    {
+      "roll": 53,
+      "name": "Joseph Page"
+    },
+    {
+      "roll": 54,
+      "name": "Bob Douglas"
+    },
+    {
+      "roll": 55,
+      "name": "Paul Gilmore"
+    },
+    {
+      "roll": 56,
+      "name": "Jeff Hickson"
+    },
+    {
+      "roll": 57,
+      "name": "Mike Savage"
+    },
+    {
+      "roll": 58,
+      "name": "Tim Savage"
+    },
+    {
+      "roll": 59,
+      "name": "Mark Beaudoin"
+    },
+    {
+      "roll": 60,
+      "name": "Rick Lagerstrom"
+    },
+    {
+      "roll": 61,
+      "name": "Jay Murdock"
+    },
+    {
+      "roll": 62,
+      "name": "Tom Peatee"
+    },
+    {
+      "roll": 63,
+      "name": "Matt Peslis",
+      "reviewNote": "source read 'MATT \"PESLIS' - surname truncated/typo, confirm spelling"
+    },
+    {
+      "roll": 64,
+      "name": "Jeff Stop"
+    },
+    {
+      "roll": 65,
+      "name": "Mark Balazy"
+    },
+    {
+      "roll": 66,
+      "name": "Dave Bussel"
+    },
+    {
+      "roll": 67,
+      "name": "Scott Miller"
+    },
+    {
+      "roll": 68,
+      "name": "Chris Duhl"
+    },
+    {
+      "roll": 69,
+      "name": "Shyam Emmadi"
+    },
+    {
+      "roll": 70,
+      "name": "Tim Kosinski"
+    },
+    {
+      "roll": 71,
+      "name": "Kevin McLaughlin"
+    },
+    {
+      "roll": 72,
+      "name": "Eric Meseroll"
+    },
+    {
+      "roll": 73,
+      "name": "Keith Perrine"
+    },
+    {
+      "roll": 74,
+      "name": "Robert Williams"
+    },
+    {
+      "roll": 75,
+      "name": "Pete Gallo"
+    },
+    {
+      "roll": 76,
+      "name": "Al Pietruszka"
+    },
+    {
+      "roll": 77,
+      "name": "Hossam Tanana"
+    },
+    {
+      "roll": 78,
+      "name": "Mike Gill"
+    },
+    {
+      "roll": 79,
+      "name": "Lou Hill"
+    },
+    {
+      "roll": 80,
+      "name": "Sandra Hamm"
+    },
+    {
+      "roll": 81,
+      "name": "Jeff Holmes"
+    },
+    {
+      "roll": 82,
+      "name": "Mike Sroka"
+    },
+    {
+      "roll": 83,
+      "name": "John Tieu"
+    },
+    {
+      "roll": 84,
+      "name": "Andy Christlieb"
+    },
+    {
+      "roll": 85,
+      "name": "Dave Collins"
+    },
+    {
+      "roll": 86,
+      "name": "Tina Petrovich"
+    },
+    {
+      "roll": 87,
+      "name": "Glenn MacRae",
+      "reviewNote": "source 'MACRAE' - confirm MacRae vs Macrae"
+    },
+    {
+      "roll": 88,
+      "name": "Renee Demarest"
+    },
+    {
+      "roll": 89,
+      "name": "James Barkoot"
+    },
+    {
+      "roll": 90,
+      "name": "Bret Bentzinger"
+    },
+    {
+      "roll": 91,
+      "name": "Jim Carter"
+    },
+    {
+      "roll": 92,
+      "name": "Son Do"
+    },
+    {
+      "roll": 93,
+      "name": "Jeff Thomas"
+    },
+    {
+      "roll": 94,
+      "name": "Mike Biga"
+    },
+    {
+      "roll": 95,
+      "name": "Robert Mazur"
+    },
+    {
+      "roll": 96,
+      "name": "Brian Stop"
+    },
+    {
+      "roll": 97,
+      "name": "Mike Harrison"
+    },
+    {
+      "roll": 98,
+      "name": "Nathan Hughes"
+    },
+    {
+      "roll": 99,
+      "name": "Robert Becker"
+    },
+    {
+      "roll": 100,
+      "name": "Gary Chick"
+    },
+    {
+      "roll": 101,
+      "name": "Adam Mora"
+    },
+    {
+      "roll": 102,
+      "name": "Lee Tatarczuk"
+    },
+    {
+      "roll": 103,
+      "name": "Mike Laginess"
+    },
+    {
+      "roll": 104,
+      "name": "Jason Cicotte"
+    },
+    {
+      "roll": 105,
+      "name": "Derek Crowe"
+    },
+    {
+      "roll": 106,
+      "name": "Matt Duluk"
+    },
+    {
+      "roll": 107,
+      "name": "Larry Harrigan"
+    },
+    {
+      "roll": 108,
+      "name": "Mike Konopka"
+    },
+    {
+      "roll": 109,
+      "name": "Bryan Laginess"
+    },
+    {
+      "roll": 110,
+      "name": "Bryan Sellers"
+    },
+    {
+      "roll": 111,
+      "name": "Jeremy Winter"
+    },
+    {
+      "roll": 112,
+      "name": "Kou Lor"
+    },
+    {
+      "roll": 113,
+      "name": "Jerry Bragg"
+    },
+    {
+      "roll": 114,
+      "name": "Craig Johnson"
+    },
+    {
+      "roll": 115,
+      "name": "Kevin Mueller"
+    },
+    {
+      "roll": 116,
+      "name": "Andy Romanowski"
+    },
+    {
+      "roll": 117,
+      "name": "Joseph Blizinksi"
+    },
+    {
+      "roll": 118,
+      "name": "Chris Endreszl"
+    },
+    {
+      "roll": 119,
+      "name": "Erik Labelle"
+    },
+    {
+      "roll": 120,
+      "name": "Paul Priebe"
+    },
+    {
+      "roll": 121,
+      "name": "Robert Reinhard"
+    },
+    {
+      "roll": 122,
+      "name": "George Gergov"
+    },
+    {
+      "roll": 123,
+      "name": "Anthony Romej"
+    },
+    {
+      "roll": 124,
+      "name": "Joshua Rougeau"
+    },
+    {
+      "roll": 125,
+      "name": "Robert Innes"
+    },
+    {
+      "roll": 126,
+      "name": "Kevin Kuzniar"
+    },
+    {
+      "roll": 127,
+      "name": "Keith Michaluk"
+    },
+    {
+      "roll": 128,
+      "name": "Shaun Moore"
+    },
+    {
+      "roll": 129,
+      "name": "Adam Reichert"
+    },
+    {
+      "roll": 130,
+      "name": "Scott Smith"
+    },
+    {
+      "roll": 131,
+      "name": "Wilhelm Isoz"
+    },
+    {
+      "roll": 132,
+      "name": "Wilson Lee"
+    },
+    {
+      "roll": 133,
+      "name": "Matt Olsafsky"
+    },
+    {
+      "roll": 134,
+      "name": "Peter Hoyt"
+    },
+    {
+      "roll": 135,
+      "name": "Gary Ozog"
+    },
+    {
+      "roll": 136,
+      "name": "Timothy Haunert"
+    },
+    {
+      "roll": 137,
+      "name": "Jeremy Rhodes"
+    },
+    {
+      "roll": 138,
+      "name": "Walter Talamonti"
+    },
+    {
+      "roll": 139,
+      "name": "Eric Archambeau"
+    },
+    {
+      "roll": 140,
+      "name": "Ashish Rungta"
+    },
+    {
+      "roll": 141,
+      "name": "Ken Mayle"
+    },
+    {
+      "roll": 142,
+      "name": "Mark Colombo"
+    },
+    {
+      "roll": 143,
+      "name": "Steve Myslinski"
+    },
+    {
+      "roll": 144,
+      "name": "Dave Sherman"
+    },
+    {
+      "roll": 145,
+      "name": "Nick Slayden"
+    },
+    {
+      "roll": 146,
+      "name": "Aaron Griffin"
+    },
+    {
+      "roll": 147,
+      "name": "Jason Kleidouhakis"
+    },
+    {
+      "roll": 148,
+      "name": "Alan Scarantino"
+    },
+    {
+      "roll": 149,
+      "name": "Jacob Walters"
+    },
+    {
+      "roll": 150,
+      "name": "Michael Ryzyi"
+    },
+    {
+      "roll": 151,
+      "name": "Artur Seitllari"
+    },
+    {
+      "roll": 152,
+      "name": "Mohammad Ali"
+    },
+    {
+      "roll": 153,
+      "name": "Matthew Beste"
+    },
+    {
+      "roll": 154,
+      "name": "Dave Cagle"
+    },
+    {
+      "roll": 155,
+      "name": "Casey Frank"
+    },
+    {
+      "roll": 156,
+      "name": "Derek Hale"
+    },
+    {
+      "roll": 157,
+      "name": "Eric Jefferies"
+    },
+    {
+      "roll": 158,
+      "name": "Brian Lenz"
+    },
+    {
+      "roll": 159,
+      "name": "Oliver Veridiano"
+    },
+    {
+      "roll": 160,
+      "name": "Charlie Thomas"
+    },
+    {
+      "roll": 161,
+      "name": "Ryan Archer"
+    },
+    {
+      "roll": 162,
+      "name": "Dan Bury"
+    },
+    {
+      "roll": 163,
+      "name": "Rob Considine"
+    },
+    {
+      "roll": 164,
+      "name": "Dan Kastner"
+    },
+    {
+      "roll": 165,
+      "name": "Roger Khalaileh"
+    },
+    {
+      "roll": 166,
+      "name": "Joe Russo"
+    },
+    {
+      "roll": 167,
+      "name": "Adam Bass"
+    },
+    {
+      "roll": 168,
+      "name": "Nick Calus"
+    },
+    {
+      "roll": 169,
+      "name": "Mike Devincent"
+    },
+    {
+      "roll": 170,
+      "name": "John Foren"
+    },
+    {
+      "roll": 171,
+      "name": "Steve Stec"
+    },
+    {
+      "roll": 172,
+      "name": "John Geverink"
+    },
+    {
+      "roll": 173,
+      "name": "Rob Hampton"
+    },
+    {
+      "roll": 174,
+      "name": "Brian Mallams"
+    },
+    {
+      "roll": 175,
+      "name": "Mike Mixon"
+    },
+    {
+      "roll": 176,
+      "name": "Fernando Rivero"
+    },
+    {
+      "roll": 177,
+      "name": "Ian Fougerousse"
+    },
+    {
+      "roll": 178,
+      "name": "Brad Lajoye"
+    },
+    {
+      "roll": 180,
+      "name": "Tyler Greene"
+    },
+    {
+      "roll": 181,
+      "name": "Joshua Groover"
+    },
+    {
+      "roll": 182,
+      "name": "Nick Niessen"
+    },
+    {
+      "roll": 183,
+      "name": "Jose Pagan"
+    },
+    {
+      "roll": 184,
+      "name": "Josh Poe"
+    },
+    {
+      "roll": 185,
+      "name": "Alexis Reyes"
+    },
+    {
+      "roll": 186,
+      "name": "Juan Sifuentes"
+    },
+    {
+      "roll": 187,
+      "name": "John Thomas"
+    },
+    {
+      "roll": 188,
+      "name": "Jeremiah Bauder"
+    },
+    {
+      "roll": 189,
+      "name": "Mike Lane"
+    },
+    {
+      "roll": 190,
+      "name": "Mouhamed Bseileh"
+    },
+    {
+      "roll": 191,
+      "name": "John Dietrich"
+    },
+    {
+      "roll": 192,
+      "name": "Erick Rossi de la Fuente"
+    },
+    {
+      "roll": 193,
+      "name": "Derek Smith"
+    },
+    {
+      "roll": 194,
+      "name": "Shawn Strausser"
+    },
+    {
+      "roll": 195,
+      "name": "Wichian (Kwan) Tubsree",
+      "reviewNote": "source has a nickname in parentheses - confirm display form"
+    },
+    {
+      "roll": 196,
+      "name": "Taylor Brown"
+    },
+    {
+      "roll": 197,
+      "name": "Allen Polak"
+    },
+    {
+      "roll": 198,
+      "name": "Joseph Maynard"
+    },
+    {
+      "roll": 199,
+      "name": "Josue Sifuentes"
+    },
+    {
+      "roll": 200,
+      "name": "Keith Tracy"
+    },
+    {
+      "roll": 201,
+      "name": "Daniel Baier"
+    },
+    {
+      "roll": 202,
+      "name": "Benjamin Dapkus"
+    },
+    {
+      "roll": 203,
+      "name": "Brandon Fedoruk"
+    },
+    {
+      "roll": 204,
+      "name": "James Nelson"
+    },
+    {
+      "roll": 205,
+      "name": "Mark Roland"
+    },
+    {
+      "roll": 206,
+      "name": "Reinaldo Perez"
+    },
+    {
+      "roll": 207,
+      "name": "Alfred Kishek"
+    },
+    {
+      "roll": 208,
+      "name": "Jason Learst"
+    },
+    {
+      "roll": 209,
+      "name": "Vlad Slyusar"
+    },
+    {
+      "roll": 210,
+      "name": "Daniel Fawaz"
+    },
+    {
+      "roll": 211,
+      "name": "Kyle Harris"
+    },
+    {
+      "roll": 212,
+      "name": "Victor Nitos"
+    },
+    {
+      "roll": 213,
+      "name": "Jordan Rhodes"
+    },
+    {
+      "roll": 214,
+      "name": "Steven Serette"
+    },
+    {
+      "roll": 215,
+      "name": "Adam Woitulewicz"
+    },
+    {
+      "roll": 216,
+      "name": "Jay Lindland"
+    },
+    {
+      "roll": 217,
+      "name": "Chad Wahid"
+    },
+    {
+      "roll": 218,
+      "name": "Reyes Castaneda-Barba"
+    },
+    {
+      "roll": 219,
+      "name": "Dan Diaz"
+    },
+    {
+      "roll": 220,
+      "name": "Connor Fedoruk"
+    },
+    {
+      "roll": 221,
+      "name": "Greg Hartman"
+    },
+    {
+      "roll": 222,
+      "name": "Mitchell Monarch"
+    },
+    {
+      "roll": 223,
+      "name": "Tyler Pierson"
+    },
+    {
+      "roll": 224,
+      "name": "John Sanders"
+    },
+    {
+      "roll": 225,
+      "name": "Bryan Sandoval"
+    },
+    {
+      "roll": 226,
+      "name": "Jordan Stec"
+    },
+    {
+      "roll": 227,
+      "name": "Jonathan Cardasis"
+    },
+    {
+      "roll": 228,
+      "name": "Justin Hulack"
+    },
+    {
+      "roll": 229,
+      "name": "Joe Kupovits"
+    },
+    {
+      "roll": 230,
+      "name": "Adam Rawski"
+    },
+    {
+      "roll": 231,
+      "name": "Srinivas Simhan"
+    },
+    {
+      "roll": 232,
+      "name": "Alex Rinna"
+    },
+    {
+      "roll": 233,
+      "name": "Noah Greenhouse"
+    },
+    {
+      "roll": 234,
+      "name": "Ryan Nieves"
+    },
+    {
+      "roll": 235,
+      "name": "Joseph Allen"
+    },
+    {
+      "roll": 236,
+      "name": "Hady Ancouni"
+    },
+    {
+      "roll": 237,
+      "name": "Jacob Bookwalter"
+    },
+    {
+      "roll": 239,
+      "name": "Tyler Newman"
+    },
+    {
+      "roll": 240,
+      "name": "Denys Slyusar"
+    },
+    {
+      "roll": 241,
+      "name": "Kyle Solesbee"
+    },
+    {
+      "roll": 242,
+      "name": "Joseph Nusbaum"
+    },
+    {
+      "roll": 244,
+      "name": "Antanas Rudis"
+    },
+    {
+      "roll": 245,
+      "name": "Rory Renwick"
+    },
+    {
+      "roll": 246,
+      "name": "Chevy Pawlik"
+    },
+    {
+      "roll": 247,
+      "name": "Nicholas Oynoian"
+    },
+    {
+      "roll": 248,
+      "name": "Ayden Wasser"
+    },
+    {
+      "roll": 249,
+      "name": "Luke Giannotta"
+    },
+    {
+      "roll": 250,
+      "name": "Brenden Ramsey"
+    },
+    {
+      "roll": 251,
+      "name": "Wayne Sawka"
+    },
+    {
+      "roll": 252,
+      "name": "Daniel Vijayasegar"
+    },
+    {
+      "roll": 253,
+      "name": "Justin Houle"
+    },
+    {
+      "roll": 254,
+      "name": "Adam Yassine"
+    },
+    {
+      "roll": 255,
+      "name": "Dominic Baughman"
+    },
+    {
+      "roll": 256,
+      "name": "Kevin Kollovozi"
+    },
+    {
+      "roll": 257,
+      "name": "Jacob Miller"
+    },
+    {
+      "roll": 258,
+      "name": "Jason Mullan"
+    },
+    {
+      "roll": 259,
+      "name": "Jack Richardson"
+    },
+    {
+      "roll": 260,
+      "name": "Alex Chartier"
+    },
+    {
+      "roll": 261,
+      "name": "Samuel Hale"
+    },
+    {
+      "roll": 262,
+      "name": "Eduardo Mayorga"
+    },
+    {
+      "roll": 263,
+      "name": "Andrew Pearson"
+    },
+    {
+      "roll": 264,
+      "name": "Charles Wytrychowski IV",
+      "reviewNote": "generational suffix - confirm 'IV' renders correctly"
+    },
+    {
+      "roll": 265,
+      "name": "Logan Henderson"
+    },
+    {
+      "roll": 266,
+      "name": "Robert Khzouz"
+    },
+    {
+      "roll": 267,
+      "name": "Colin Riley"
+    },
+    {
+      "roll": 268,
+      "name": "Justin Benson"
+    },
+    {
+      "roll": 269,
+      "name": "Ghassan el Zahabi"
+    },
+    {
+      "roll": 270,
+      "name": "Edward Murariu"
+    },
+    {
+      "roll": 271,
+      "name": "David Singleton"
+    },
+    {
+      "roll": 272,
+      "name": "Qais Zalmout"
+    },
+    {
+      "roll": 273,
+      "name": "Elijah Butler"
+    },
+    {
+      "roll": 274,
+      "name": "James Harding"
+    },
+    {
+      "roll": 275,
+      "name": "Kage Little"
+    },
+    {
+      "roll": 276,
+      "name": "Matthew Warra"
+    },
+    {
+      "roll": 277,
+      "name": "Maximus Amburgey"
+    },
+    {
+      "roll": 278,
+      "name": "Nicholas DaSilva",
+      "reviewNote": "source 'DASILVA' - confirm DaSilva vs Da Silva vs Dasilva"
+    },
+    {
+      "roll": 279,
+      "name": "Seth McKinney"
+    },
+    {
+      "roll": 280,
+      "name": "Shane McKinney"
+    },
+    {
+      "roll": 281,
+      "name": "Traven Yarbro"
+    },
+    {
+      "roll": 282,
+      "name": "Kareem Balaghi"
+    },
+    {
+      "roll": 283,
+      "name": "Gavin Borbolla"
+    },
+    {
+      "roll": 284,
+      "name": "Elijah Camcam"
+    },
+    {
+      "roll": 285,
+      "name": "Tri Nguyen"
+    },
+    {
+      "roll": 286,
+      "name": "Chase Sutherlin"
+    },
+    {
+      "roll": 287,
+      "name": "Kelvin Tran"
+    },
+    {
+      "roll": 288,
+      "name": "Keegan Abbott"
+    },
+    {
+      "roll": 289,
+      "name": "Charles Felsburg"
+    },
+    {
+      "roll": 290,
+      "name": "Colin Mack"
+    },
+    {
+      "roll": 291,
+      "name": "Ralph Steinbrenner"
+    }
+  ]
+}

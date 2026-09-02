@@ -1,0 +1,16 @@
+{
+  "season": "Fall 2026",
+  "theme": "avengers",
+  "note": "PLACEHOLDER - no real event data supplied. Fill this in before building /rush.",
+  "events": [
+    {
+      "date": "YYYY-MM-DD",
+      "time": "18:00",
+      "end": "20:00",
+      "name": "",
+      "location": "",
+      "blurb": "",
+      "dress": "casual"
+    }
+  ]
+}
