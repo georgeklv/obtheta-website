@@ -1,0 +1,156 @@
+---
+// Site navigation. Chapter mark left (typographic ΘΤ until a crest asset
+// arrives), links right, hairline beneath, sticky. Current page gets a
+// 2px garnet underline. Mobile: full-screen overlay.
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/rush/', label: 'Rush' },
+  { href: '/brothers/', label: 'Brothers' },
+  { href: '/about/', label: 'About' },
+  { href: '/faq/', label: 'FAQ' },
+];
+const path = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, ''));
+---
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="mark" href="/" aria-label="Theta Tau, Omicron Beta chapter — home">
+      <span class="mark-glyphs">ΘΤ</span>
+      <span class="mark-name">Omicron Beta</span>
+    </a>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-menu"
+    >Menu</button>
+    <nav id="site-menu" aria-label="Site">
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              aria-current={isCurrent(l.href) ? 'page' : undefined}
+            >{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--tt-white);
+    border-bottom: var(--rule-hairline);
+  }
+  .nav-inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 3.5rem;
+  }
+  .mark {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    text-decoration: none;
+    font-family: var(--font-head);
+  }
+  .mark-glyphs {
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .mark-name {
+    font-size: var(--fs-ui);
+    font-weight: 500;
+    color: var(--tt-ink);
+  }
+  .nav-toggle {
+    display: none;
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: var(--sp-4);
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    display: block;
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 1rem 0 calc(1rem - 2px);
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover { border-bottom-color: var(--tt-black); }
+  nav a[aria-current='page'] {
+    font-weight: 600;
+    border-bottom-color: var(--tt-garnet);
+  }
+
+  @media (max-width: 47.9375rem) {
+    .nav-toggle { display: block; }
+    nav {
+      display: none;
+      position: fixed;
+      inset: 3.5rem 0 0 0;
+      background: var(--tt-white);
+      overflow-y: auto;
+    }
+    .site-nav.open nav { display: block; }
+    nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding: var(--sp-4) var(--gutter);
+    }
+    nav li { border-bottom: var(--rule-hairline); }
+    nav a {
+      font-size: var(--fs-h3);
+      font-weight: 600;
+      padding: var(--sp-3) 0;
+      border-bottom: none;
+      border-left: 4px solid transparent;
+    }
+    nav a[aria-current='page'] {
+      border-bottom: none;
+      border-left-color: var(--tt-garnet);
+      padding-left: var(--sp-2);
+    }
+    nav a:hover { border-bottom: none; }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('.site-nav')!;
+  const toggle = header.querySelector<HTMLButtonElement>('.nav-toggle')!;
+  toggle.addEventListener('click', () => {
+    const open = header.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close' : 'Menu';
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+  });
+  // Close the overlay when a link is chosen
+  header.querySelectorAll('nav a').forEach((a) =>
+    a.addEventListener('click', () => {
+      header.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = 'Menu';
+      document.documentElement.style.overflow = '';
+    })
+  );
+</script>

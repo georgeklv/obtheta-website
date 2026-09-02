@@ -1,0 +1,167 @@
+/* Fonts — self-hosted, no third-party CDN */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/archivo-v25-latin-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/archivo-v25-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/archivo-v25-latin-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-v14-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-v14-latin-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-v14-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-v14-latin-600italic.woff2') format('woff2');
+}
+
+/* Reset — small and boring on purpose */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--tt-white);
+  color: var(--tt-black);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
+a { color: inherit; }
+
+/* Type defaults */
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  line-height: var(--lh-head);
+  letter-spacing: -0.01em;
+}
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+p  { max-width: var(--measure); color: var(--tt-ink); }
+
+/* Focus — square garnet ring, everywhere */
+:focus-visible {
+  outline: 2px solid var(--tt-garnet);
+  outline-offset: 2px;
+}
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--tt-white);
+}
+
+/* Layout helpers */
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--tt-black);
+  color: var(--tt-white);
+  font-family: var(--font-head);
+  font-size: var(--fs-ui);
+  padding: var(--sp-1) var(--sp-2);
+}
+.skip-link:focus { left: 0; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Buttons — square, no icons, instant states */
+.btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-size: var(--fs-ui);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.875rem 1.75rem;
+  border: 2px solid transparent;
+}
+.btn-primary {
+  background: var(--tt-garnet);
+  border-color: var(--tt-garnet);
+  color: var(--tt-white);
+}
+.btn-primary:hover, .btn-primary:active {
+  background: var(--tt-garnet-dk);
+  border-color: var(--tt-garnet-dk);
+}
+.btn-outline {
+  border-color: var(--tt-black);
+  color: var(--tt-black);
+}
+.btn-outline:hover, .btn-outline:active {
+  background: var(--tt-black);
+  color: var(--tt-white);
+}
+.on-dark .btn-outline {
+  border-color: var(--tt-white);
+  color: var(--tt-white);
+}
+.on-dark .btn-outline:hover, .on-dark .btn-outline:active {
+  background: var(--tt-white);
+  color: var(--tt-garnet);
+}
+
+/* Labelled empty frame — the honest missing-photo state */
+.photo-frame {
+  border: 1px solid var(--tt-rule);
+  display: grid;
+  place-items: center;
+  min-height: 16rem;
+  background: var(--tt-white);
+}
+.photo-frame > span {
+  font-family: var(--font-head);
+  font-size: var(--fs-caption);
+  color: var(--tt-ink);
+  letter-spacing: 0.02em;
+}
