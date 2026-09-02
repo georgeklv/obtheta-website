@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
-import GearSolid from '../components/GearSolid.astro';
 
 // Pillar copy is verbatim from content/about.md — do not edit here without
 // editing the source file to match.
@@ -58,7 +57,14 @@ const stats = [
       </p>
     </div>
     <div class="hero-gear" id="hero-gear" aria-hidden="true">
-      <GearSolid class="hero-gear-svg" />
+      <img
+        class="hero-gear-img"
+        src="/img/hero-gear.webp"
+        alt=""
+        width="900"
+        height="900"
+        loading="eager"
+      />
     </div>
   </section>
 
@@ -188,7 +194,12 @@ const stats = [
   }
   .hero-gear.dragging { cursor: grabbing; }
   .hero-gear:focus-visible { outline-color: var(--tt-white); }
-  .hero-gear-svg { width: 100%; height: 100%; }
+  .hero-gear-img {
+    width: 100%;
+    height: 100%;
+    /* centred on its own centroid, so rotation has no wobble */
+    will-change: transform;
+  }
   @media (max-width: 47.9375rem) {
     .hero { align-items: flex-start; padding-top: var(--sp-6); }
     .hero-gear {
@@ -360,7 +371,7 @@ const stats = [
   if (gear && !reduced) {
     /* Only the metal turns; the lighting layer stays fixed so the highlight
        reads as a light source in the room rather than paint on the part. */
-    const metal = gear.querySelector<SVGGElement>('.gear-spin')!;
+    const metal = gear.querySelector<HTMLElement>('.hero-gear-img')!;
     gear.removeAttribute('aria-hidden');
     gear.setAttribute('role', 'img');
     gear.setAttribute('tabindex', '0');
@@ -403,7 +414,7 @@ const stats = [
       if (dt > 0) vel = d / dt;
       lastPointerAngle = a;
       lastMoveTime = now;
-      metal.setAttribute('transform', `rotate(${(angle * 180) / Math.PI})`);
+      metal.style.transform = `rotate(${angle}rad)`;
     });
     const release = () => {
       dragging = false;
@@ -423,7 +434,7 @@ const stats = [
       if (!dragging && Math.abs(vel) > 0.02) {
         angle += vel * dt;
         vel *= Math.exp(-1.4 * dt); // friction
-        metal.setAttribute('transform', `rotate(${(angle * 180) / Math.PI})`);
+        metal.style.transform = `rotate(${angle}rad)`;
       }
       requestAnimationFrame(spin);
     };
