@@ -257,6 +257,9 @@ const stats = [
     .hero-gear.interactive .gear-hint { display: none; }
   }
   .hero-gear:focus-visible { outline-color: var(--tt-white); }
+  /* Focus moved by pointer still matches :focus-visible here, which drew a
+     white box round the gear on every grab. Keyboard focus keeps its ring. */
+  .hero-gear.pointer-focus:focus-visible { outline: none; }
   .hero-gear-svg { width: 100%; height: 100%; }
   @media (max-width: 47.9375rem) {
     .hero { align-items: flex-start; padding-top: var(--sp-6); }
@@ -568,6 +571,7 @@ const stats = [
       // preventDefault stops the selection, but also suppresses the focus a
       // click would normally give — restore it so the arrow keys still work.
       e.preventDefault();
+      gear.classList.add('pointer-focus');
       gear.focus();
       dragging = true;
       gear.classList.add('dragging');
@@ -594,7 +598,10 @@ const stats = [
     };
     gear.addEventListener('pointerup', release);
     gear.addEventListener('pointercancel', release);
+    gear.addEventListener('blur', () => gear.classList.remove('pointer-focus'));
     gear.addEventListener('keydown', (e) => {
+      // Any key means the keyboard is in use — let the ring come back.
+      gear.classList.remove('pointer-focus');
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       e.preventDefault();
       vel = Math.max(-12, Math.min(12, vel + (e.key === 'ArrowRight' ? 2.5 : -2.5)));
