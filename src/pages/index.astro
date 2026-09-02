@@ -33,7 +33,7 @@ const pillars = [
         University of Michigan-Dearborn · Founded 1988
       </p>
     </div>
-    <div class="hero-gear" id="hero-gear">
+    <div class="hero-gear" id="hero-gear" aria-hidden="true">
       <Gear class="hero-gear-svg" />
     </div>
   </section>
@@ -218,6 +218,13 @@ const pillars = [
   const gear = document.getElementById('hero-gear');
   if (gear && !reduced) {
     const svg = gear.querySelector('svg')!;
+    gear.removeAttribute('aria-hidden');
+    gear.setAttribute('role', 'img');
+    gear.setAttribute('tabindex', '0');
+    gear.setAttribute(
+      'aria-label',
+      'The chapter gear. Drag it, or press the left and right arrow keys, to spin it.'
+    );
     let angle = 0;      // radians
     let vel = 0;        // rad/s
     let dragging = false;
@@ -261,6 +268,11 @@ const pillars = [
     };
     gear.addEventListener('pointerup', release);
     gear.addEventListener('pointercancel', release);
+    gear.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      vel = Math.max(-12, Math.min(12, vel + (e.key === 'ArrowRight' ? 2.5 : -2.5)));
+    });
 
     const spin = (t: number) => {
       const dt = lastFrame ? (t - lastFrame) / 1000 : 0;
