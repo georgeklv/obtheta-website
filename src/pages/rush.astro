@@ -1,0 +1,295 @@
+---
+import Base from '../layouts/Base.astro';
+import rush from '../../content/rush.json';
+import faq from '../../content/faq.json';
+import '../styles/rush-theme.css';
+
+const byId = new Map(faq.items.map((i) => [i.id, i]));
+const rushing = byId.get('faq-8')!;
+const requirements = byId.get('faq-2')!.answer.split(/\n\n+/);
+const rushingParas = rushing.answer.split(/\n\n+/);
+const rushingTitle = rushing.question.replace(/[“”"]/g, '');
+
+// Placeholder rows (no parseable date) are not events.
+const events = rush.events.filter((e) => /^\d{4}-\d{2}-\d{2}$/.test(e.date));
+const fmtDate = (iso: string) =>
+  new Date(`${iso}T00:00:00`).toLocaleDateString('en-US', {
+    weekday: 'short', month: 'long', day: 'numeric',
+  });
+const fmtTime = (t: string) => {
+  const [h, m] = t.split(':').map(Number);
+  const hr = ((h + 11) % 12) + 1;
+  return `${hr}:${String(m).padStart(2, '0')} ${h < 12 ? 'a.m.' : 'p.m.'}`;
+};
+
+const actions = [
+  { label: 'Interest Form', href: 'https://forms.gle/F1rUYmNotYYEpCU38', primary: true },
+  { label: 'Join the WhatsApp', href: 'https://chat.whatsapp.com/BeGZ2paL6fh9Gyf1TWTDFc', primary: false },
+];
+const links = [
+  { label: 'Rush Flyer', href: 'https://drive.google.com/file/d/16LDKj8M_E51f9mDFQR1jW9Mfru47l0RW/view' },
+  { label: 'Victors Link', href: 'https://umdearborn.campuslabs.com/engage/organization/thetatau-ob' },
+  { label: 'Instagram', href: 'https://www.instagram.com/umdthetatau/' },
+];
+const headline = `${rush.season.toUpperCase()} RUSH`;
+---
+<Base
+  title={`Rush ${rush.season} — Theta Tau, Omicron Beta`}
+  description={`Rush the Omicron Beta chapter of Theta Tau at UM-Dearborn in ${rush.season}: events, requirements, the interest form, and how to reach us.`}
+>
+  <div class="rush-page on-dark">
+    <header class="rush-hero container">
+      <h1 class="rush-headline">{headline}</h1>
+      <p class="rush-sub">
+        Theta Tau · Omicron Beta · University of Michigan-Dearborn
+      </p>
+      <div class="rush-actions">
+        {actions.map((a) => (
+          <a class={`btn ${a.primary ? 'btn-primary' : 'btn-outline'}`} href={a.href}>{a.label}</a>
+        ))}
+      </div>
+      <ul class="rush-links">
+        {links.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </header>
+
+    <section class="container rush-section" aria-labelledby="rushing-title">
+      <h2 id="rushing-title">{rushingTitle}</h2>
+      {rushingParas.map((p) => <p>{p}</p>)}
+    </section>
+
+    <section class="container rush-section" aria-labelledby="req-title">
+      <h2 id="req-title">Requirements</h2>
+      <ul class="req-list">
+        {requirements.map((r) => <li>{r}</li>)}
+      </ul>
+    </section>
+
+    <section class="container rush-section" aria-labelledby="cal-title">
+      <h2 id="cal-title">{rush.season} events</h2>
+      {events.length === 0 && (
+        <div class="cal-empty">
+          <p>
+            {rush.season} rush events haven't been posted yet. Join the WhatsApp
+            group or check Instagram for announcements.
+          </p>
+        </div>
+      )}
+      {events.length > 0 && (
+        <ol class="cal" id="cal">
+          {events.map((e) => (
+            <li class="cal-event" data-date={e.date}>
+              <p class="cal-date">{fmtDate(e.date)}</p>
+              <h3 class="cal-name">{e.name}</h3>
+              <p class="cal-meta">
+                {fmtTime(e.time)} to {fmtTime(e.end)} — {e.location}
+              </p>
+              {e.blurb && <p class="cal-blurb">{e.blurb}</p>}
+              <p class="cal-dress">{e.dress === 'formal' ? 'Formal dress' : 'Casual dress'}</p>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
+
+    <section class="container rush-section" aria-labelledby="contact-title">
+      <h2 id="contact-title">Rush contacts</h2>
+      <ul class="contacts">
+        <li>
+          <span class="contact-name">Matthew Warra</span>
+          <a href="tel:+12489216547">(248) 921-6547</a>
+        </li>
+        <li>
+          <span class="contact-name">Colin Mack</span>
+          <a href="tel:+12485336473">(248) 533-6473</a>
+          <a href="mailto:csmack2004@gmail.com">csmack2004@gmail.com</a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="container rush-section rush-bottom" aria-label="Sign up">
+      <div class="rush-actions">
+        {actions.map((a) => (
+          <a class={`btn ${a.primary ? 'btn-primary' : 'btn-outline'}`} href={a.href}>{a.label}</a>
+        ))}
+      </div>
+    </section>
+
+    <div class="rush-guide" id="rush-guide" aria-hidden="true"></div>
+  </div>
+</Base>
+
+<style>
+  .rush-page {
+    background: var(--rush-bg);
+    color: var(--rush-fg);
+    position: relative;
+    overflow: clip;
+    /* pull flush against nav and footer */
+    margin-bottom: calc(-1 * var(--sp-8));
+    padding-bottom: var(--sp-8);
+  }
+  .rush-page p { color: var(--rush-fg); }
+
+  .rush-hero { padding-top: var(--sp-7); }
+  .rush-headline {
+    font-family: var(--rush-display);
+    font-weight: 400;
+    font-size: clamp(3rem, 11vw, 8rem);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--rush-display-tracking);
+    max-width: 12ch;
+  }
+  .rush-sub {
+    margin-top: var(--sp-3);
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  .rush-actions {
+    margin-top: var(--sp-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+  }
+  .rush-links {
+    list-style: none;
+    margin: var(--sp-4) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+  }
+  .rush-links a {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+  }
+
+  .rush-section { margin-top: var(--sp-7); }
+  .rush-section h2 {
+    border-bottom: 2px solid var(--rush-accent);
+    padding-bottom: var(--sp-2);
+    margin-bottom: var(--sp-4);
+    max-width: var(--measure);
+  }
+  .rush-section p + p { margin-top: var(--sp-3); }
+
+  .req-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: var(--measure);
+  }
+  .req-list li {
+    padding: var(--sp-2) 0 var(--sp-2) var(--sp-3);
+    border-left: 2px solid var(--rush-accent);
+  }
+  .req-list li + li { margin-top: var(--sp-2); }
+
+  .cal-empty p { max-width: var(--measure); }
+  .cal { list-style: none; margin: 0; padding: 0; max-width: 44rem; }
+  .cal-event {
+    border-top: 1px solid var(--rush-rule);
+    padding: var(--sp-4) 0 var(--sp-4) var(--sp-3);
+  }
+  .cal-event.next {
+    border-left: 4px solid var(--rush-accent);
+    padding-left: calc(var(--sp-3) - 4px + 4px);
+  }
+  .cal-event.past { opacity: 0.55; }
+  .cal-date {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .cal-event.next .cal-date::after {
+    content: 'Next event';
+    margin-left: 1rem;
+    color: var(--rush-accent);
+    background: var(--rush-fg);
+    padding: 0.125rem 0.5rem;
+    font-size: var(--fs-caption);
+  }
+  .cal-name { margin-top: var(--sp-1); }
+  .cal-meta { font-family: var(--font-head); font-size: var(--fs-ui); margin-top: 0.25rem; }
+  .cal-blurb { margin-top: var(--sp-1); }
+  .cal-dress {
+    margin-top: var(--sp-1);
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .contacts { list-style: none; margin: 0; padding: 0; }
+  .contacts li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    padding: var(--sp-2) 0;
+    border-bottom: 1px solid var(--rush-rule);
+    font-family: var(--font-head);
+    font-size: 1rem;
+  }
+  .contact-name { font-weight: 600; min-width: 10rem; }
+
+  .rush-bottom { padding-bottom: var(--sp-6); }
+
+  .rush-guide {
+    position: fixed;
+    right: 0.5rem;
+    top: 0;
+    pointer-events: none;
+    display: none;
+  }
+  @media (min-width: 48rem) {
+    .rush-guide.live { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rush-guide.live { display: none; }
+  }
+</style>
+
+<script>
+  /* The scroll guide flies down the page edge with scroll progress. */
+  const guide = document.getElementById('rush-guide');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (guide && !reduced) {
+    guide.classList.add('live');
+    let ticking = false;
+    const move = () => {
+      ticking = false;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const p = max > 0 ? window.scrollY / max : 0;
+      const travel = window.innerHeight - 120;
+      guide.style.transform = `translateY(${60 + p * travel}px)`;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(move); }
+    }, { passive: true });
+    move();
+  }
+
+  /* Highlight the next upcoming event; dim past ones. Runs against the
+     visitor's clock, so the build never goes stale. */
+  const cal = document.getElementById('cal');
+  if (cal) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let nextMarked = false;
+    cal.querySelectorAll<HTMLElement>('.cal-event').forEach((ev) => {
+      const d = new Date(`${ev.dataset.date}T23:59:59`);
+      if (d < today) ev.classList.add('past');
+      else if (!nextMarked) { ev.classList.add('next'); nextMarked = true; }
+    });
+  }
+</script>
