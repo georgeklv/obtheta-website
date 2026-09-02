@@ -1,0 +1,330 @@
+---
+import Base from '../layouts/Base.astro';
+import Gear from '../components/Gear.astro';
+import fs from 'node:fs';
+
+// All prose on this page is verbatim from content/about.md — edit there first.
+
+const companies = [
+  ['ford', 'Ford'], ['general-motors', 'General Motors'], ['stellantis', 'Stellantis'],
+  ['borgwarner', 'BorgWarner'], ['denso', 'DENSO'], ['yazaki', 'Yazaki'],
+  ['valeo', 'Valeo'], ['harman', 'Harman'], ['detroit-diesel', 'Detroit Diesel'],
+  ['google', 'Google'], ['microsoft', 'Microsoft'], ['ibm', 'IBM'],
+  ['nasa', 'NASA'], ['ge', 'GE'], ['3m', '3M'],
+  ['dte-energy', 'DTE Energy'], ['palo-alto', 'Palo Alto Networks'], ['urban-science', 'Urban Science'],
+] as const;
+
+const logos = companies.map(([slug, name], i) => ({
+  name,
+  svg: fs
+    .readFileSync(`public/logos/${slug}.svg`, 'utf8')
+    .replace('<svg', `<svg role="img" aria-label="${name}"`),
+  dur: (16 + (i % 7) * 2.3).toFixed(1),
+  delay: (-(i * 3.1) % 20).toFixed(1),
+}));
+
+const regions = [
+  ['Delta', 'Case Western Reserve University'],
+  ['Sigma', 'Ohio State University'],
+  ['Epsilon Beta', 'Wayne State University'],
+  ['Xi Beta', 'Lawrence Tech'],
+  ['Omicron Beta', 'University of Michigan-Dearborn'],
+  ['Rho Beta', 'Ohio University'],
+  ['Chi Beta', 'University of Toledo'],
+  ['Theta Gamma', 'University of Michigan'],
+  ['Nu Delta', 'University of Pittsburgh'],
+];
+---
+<Base
+  title="About — Theta Tau, Omicron Beta"
+  description="The Omicron Beta chapter of Theta Tau: our alumni network, the chapter's history at UM-Dearborn since 1988, and the national fraternity founded in 1904."
+>
+  <div class="page">
+    <header class="container">
+      <h1 class="page-title">About</h1>
+    </header>
+
+    <!-- 1 · Our Network -->
+    <section class="container section" aria-labelledby="network-title">
+      <h2 id="network-title">Our Network</h2>
+      <p>
+        In Theta Tau, we value education beyond the limits of the classroom. In
+        order to develop professionally, we hold resume workshops, mock
+        interviews, and company tours. One of our chapter's most valuable assets
+        is our strong communication with the alumni of the chapter. Our brothers
+        are in a network of elite companies that span a wide range of engineering
+        disciplines.
+      </p>
+      <p class="section-link"><a href="/brothers/">Meet the brothers</a></p>
+
+      <ul class="logo-field" aria-label="Companies where brothers work">
+        {logos.map((l) => (
+          <li style={`--dur:${l.dur}s; --delay:${l.delay}s`}>
+            <Fragment set:html={l.svg} />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- 2 · Omicron Beta -->
+    <section class="container section" aria-labelledby="ob-title">
+      <h2 id="ob-title">Omicron Beta</h2>
+      <p>
+        Our Omicron Beta chapter was founded at the University of
+        Michigan-Dearborn on January 16th, 1988, making it the first professional
+        fraternity on campus and spurring the growth of Greek Life at
+        UM-Dearborn. The involvement and dedication of Omicron Beta's members has
+        allowed the chapter to continue to grow with the support of the
+        University of Michigan-Dearborn's College of Engineering and Computer
+        Science.
+      </p>
+      <p>
+        Since its founding, the chapter has initiated over 240 members and has
+        become a prominent presence on campus, holding campus leadership
+        positions such as Dearborn Campus Engineers, Association for Computing
+        Machinery, InterFraternity Council, Student Government, Student
+        Activities Board, and SAE racing teams.
+      </p>
+      <p>
+        Each semester, the chapter hosts professional, philanthropic, and social
+        events in the community. Members of Omicron Beta attend leadership
+        conferences, host events on campus, and volunteer in local engineering
+        programs like FIRST Robotics and VEX Robotics. They also volunteer on
+        campus through various engineering programs and events. Members also
+        enjoy taking part in social events including dinners, camping, and
+        pick-up sports.
+      </p>
+    </section>
+
+    <!-- 3 · Theta Tau -->
+    <section class="section" aria-labelledby="tt-title">
+      <div class="container">
+        <h2 id="tt-title">Theta Tau</h2>
+        <p>
+          Theta Tau is the oldest, largest, and foremost fraternity for
+          engineers. Since its founding at the University of Minnesota in 1904,
+          over 40,000 members have been initiated. With an emphasis on quality
+          and a strong fraternal bond, the fraternity has chapters only at
+          ABET-accredited schools.
+        </p>
+        <h3 class="sub">Purpose</h3>
+        <p>
+          The purpose of Theta Tau is to develop and maintain a high standard of
+          professional interest among its members, and to unite them in a strong
+          bond of fraternal fellowship.
+        </p>
+      </div>
+
+      <div class="motto on-dark">
+        <div class="container">
+          <blockquote>
+            <p class="motto-text">
+              “Whatsoever thy hand findeth to do, do it with thy might.”
+            </p>
+            <cite class="motto-cite">Ecclesiastes 9:10</cite>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="container">
+        <h3 class="sub">Symbols</h3>
+        <ul class="symbols">
+          <li>
+            <svg class="symbol-mark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+              <!-- Hammer and tongs, crossed -->
+              <path d="M 30 18 L 70 82" />
+              <path d="M 22 10 L 44 10 L 44 24 L 22 24 Z" />
+              <path d="M 70 18 L 30 82 M 30 82 L 22 90 M 30 82 L 40 88" />
+              <circle cx="62" cy="30" r="4" />
+              <path d="M 62 26 C 52 16, 66 8, 74 14 M 62 34 C 72 44, 58 50, 50 46" />
+            </svg>
+            <span>Hammer and Tongs</span>
+          </li>
+          <li>
+            <Gear class="symbol-mark" />
+            <span>Gear</span>
+          </li>
+          <li>
+            <svg class="symbol-mark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+              <!-- Jacqueminot rose -->
+              <path d="M 50 38 C 46 34, 50 28, 55 30 C 61 32, 60 40, 53 42 C 44 44, 40 36, 45 29 C 51 21, 63 24, 66 33 C 69 43, 60 51, 50 49 C 38 47, 34 34, 42 25" />
+              <path d="M 50 49 L 50 88" />
+              <path d="M 50 62 C 40 58, 34 62, 32 70 C 40 72, 48 68, 50 62 Z" />
+              <path d="M 50 72 C 60 68, 66 72, 68 80 C 60 82, 52 78, 50 72 Z" />
+            </svg>
+            <span>Jacqueminot rose</span>
+          </li>
+          <li>
+            <svg class="symbol-mark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+              <!-- Dark red garnet, faceted -->
+              <path d="M 30 32 L 70 32 L 84 48 L 50 86 L 16 48 Z" />
+              <path d="M 16 48 L 84 48 M 30 32 L 42 48 L 50 86 M 70 32 L 58 48 L 50 86 M 42 48 L 50 32 L 58 48" />
+            </svg>
+            <span>Dark red garnet</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4 · Great Lakes Region -->
+    <section class="container section" aria-labelledby="glr-title">
+      <h2 id="glr-title">Great Lakes Region Chapters</h2>
+      <table class="region">
+        <thead>
+          <tr>
+            <th scope="col">Chapter</th>
+            <th scope="col">School</th>
+          </tr>
+        </thead>
+        <tbody>
+          {regions.map(([chapter, school]) => (
+            <tr class={chapter === 'Omicron Beta' ? 'current' : undefined}>
+              <td>
+                {chapter}
+                {chapter === 'Omicron Beta' && (
+                  <span class="current-tag">Current chapter</span>
+                )}
+              </td>
+              <td>{school}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .page { padding-top: var(--sp-6); }
+  .page-title {
+    font-size: var(--fs-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    border-bottom: var(--rule-strong);
+    padding-bottom: var(--sp-3);
+  }
+  .section { margin-top: var(--sp-7); }
+  .section h2 { margin-bottom: var(--sp-3); }
+  .section p + p { margin-top: var(--sp-3); }
+  .sub { margin: var(--sp-5) 0 var(--sp-2); }
+  .section-link { margin-top: var(--sp-3); }
+  .section-link a {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+    color: var(--tt-garnet);
+  }
+
+  /* --- Logo field: monochrome at rest, color on hover, slow drift -- */
+  .logo-field {
+    list-style: none;
+    margin: var(--sp-6) 0 0;
+    padding: var(--sp-5) 0 0;
+    border-top: var(--rule-hairline);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    gap: var(--sp-5) var(--sp-6);
+    align-items: center;
+  }
+  .logo-field li {
+    animation: drift var(--dur) ease-in-out var(--delay) infinite alternate;
+  }
+  .logo-field :global(svg) {
+    width: 100%;
+    height: 2.25rem;
+    filter: brightness(0);
+  }
+  .logo-field li:hover :global(svg) { filter: none; }
+  @keyframes drift {
+    0%   { transform: translate(0, 0); }
+    33%  { transform: translate(3px, -4px); }
+    66%  { transform: translate(-2px, 3px); }
+    100% { transform: translate(2px, 2px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-field li { animation: none; }
+  }
+
+  /* --- Motto: the one place type gets as loud as the hero ---------- */
+  .motto {
+    background: var(--tt-garnet);
+    margin: var(--sp-6) 0;
+    padding: var(--sp-7) 0;
+  }
+  .motto blockquote { margin: 0; }
+  .motto-text {
+    color: var(--tt-white);
+    font-size: var(--fs-motto);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.25;
+    max-width: 22ch;
+  }
+  .motto-cite {
+    display: block;
+    margin-top: var(--sp-3);
+    font-family: var(--font-head);
+    font-style: normal;
+    font-size: var(--fs-ui);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--tt-white);
+  }
+
+  /* --- Symbols ----------------------------------------------------- */
+  .symbols {
+    list-style: none;
+    margin: var(--sp-2) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--sp-4);
+  }
+  .symbols li {
+    color: var(--tt-garnet);
+    border: 1px solid var(--tt-rule);
+    padding: var(--sp-3);
+  }
+  .symbol-mark { width: 4.5rem; height: 4.5rem; }
+  .symbols span {
+    display: block;
+    margin-top: var(--sp-2);
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 600;
+    color: var(--tt-black);
+  }
+
+  /* --- Region table ------------------------------------------------ */
+  .region {
+    width: 100%;
+    max-width: 44rem;
+    border-collapse: collapse;
+  }
+  .region th {
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    padding: 0 0 var(--sp-1);
+    border-bottom: var(--rule-strong);
+  }
+  .region td {
+    padding: 0.625rem 1rem 0.625rem 0;
+    border-bottom: var(--rule-hairline);
+    font-family: var(--font-head);
+    font-size: 1rem;
+  }
+  .region tr.current td { font-weight: 700; }
+  .region tr.current td:first-child { border-left: var(--rule-mark); padding-left: calc(1rem - 2px); }
+  .current-tag {
+    display: inline-block;
+    margin-left: 0.75rem;
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    color: var(--tt-garnet);
+    letter-spacing: 0.04em;
+  }
+</style>
