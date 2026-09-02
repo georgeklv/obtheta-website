@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import rush from '../../content/rush.json';
 import faq from '../../content/faq.json';
 import '../styles/rush-theme.css';
+import { withBase } from '../lib/paths';
 
 const byId = new Map(faq.items.map((i) => [i.id, i]));
 const rushing = byId.get('faq-8')!;
@@ -59,7 +60,7 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
       <figure class="rush-flyer">
         <a href="https://drive.google.com/file/d/16LDKj8M_E51f9mDFQR1jW9Mfru47l0RW/view">
             <img
-            src="/img/rush-flyer-fall-2026.webp"
+            src={withBase('/img/rush-flyer-fall-2026.webp')}
             alt="Fall 2026 rush flyer listing all twelve events, September 5 through 25"
             width="900"
             height="1274"
@@ -78,7 +79,7 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
         </div>
         <img
           class="rushing-armor"
-          src="/img/rush-armor.webp"
+          src={withBase('/img/rush-armor.webp')}
           alt=""
           width="759"
           height="1000"

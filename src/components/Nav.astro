@@ -2,6 +2,8 @@
 // Site navigation. Chapter mark left (typographic ΘΤ until a crest asset
 // arrives), links right, hairline beneath, sticky. Current page gets a
 // 2px garnet underline. Mobile: full-screen overlay.
+import { withBase, stripBase } from '../lib/paths';
+
 const links = [
   { href: '/', label: 'Home' },
   { href: '/rush/', label: 'Rush' },
@@ -9,13 +11,14 @@ const links = [
   { href: '/about/', label: 'About' },
   { href: '/faq/', label: 'FAQ' },
 ];
-const path = Astro.url.pathname;
+// Routes are compared without the deploy base; links are written with it.
+const path = stripBase(Astro.url.pathname);
 const isCurrent = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, ''));
 ---
 <header class="site-nav">
   <div class="nav-inner">
-    <a class="mark" href="/" aria-label="Theta Tau, Omicron Beta chapter — home">
+    <a class="mark" href={withBase('/')} aria-label="Theta Tau, Omicron Beta chapter — home">
       <span class="mark-glyphs">ΘΤ</span>
       <span class="mark-name">Omicron Beta</span>
     </a>
@@ -30,7 +33,7 @@ const isCurrent = (href: string) =>
         {links.map((l) => (
           <li>
             <a
-              href={l.href}
+              href={withBase(l.href)}
               aria-current={isCurrent(l.href) ? 'page' : undefined}
             >{l.label}</a>
           </li>

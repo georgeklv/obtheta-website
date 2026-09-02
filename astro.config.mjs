@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://obthetatau.org',
+  site: 'https://georgeklv.github.io',
+  base: '/obtheta-website',
   trailingSlash: 'ignore',
 });

@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
 import GearCrest from '../components/GearCrest.astro';
+import { withBase } from '../lib/paths';
 
 // Pillar copy is verbatim from content/about.md — do not edit here without
 // editing the source file to match.
@@ -38,7 +39,7 @@ const stats = [
   <section class="hero">
     <img
       class="hero-bg"
-      src="/img/chapter-hero.webp"
+      src={withBase('/img/chapter-hero.webp')}
       alt=""
       width="1290"
       height="954"
@@ -69,7 +70,7 @@ const stats = [
         <p class="closer-line">
           Theta Tau is a Co-Ed Professional Engineering Fraternity.
         </p>
-        <a class="btn btn-outline" href="/rush/">Rush Fall 2026</a>
+        <a class="btn btn-outline" href={withBase('/rush/')}>Rush Fall 2026</a>
       </div>
       <dl class="stats">
         {stats.map((st, i) => (
@@ -103,7 +104,7 @@ const stats = [
           Machinery, InterFraternity Council, Student Government, Student
           Activities Board, and SAE racing teams.
         </p>
-        <a class="btn btn-outline" href="/about/">Read the chapter history</a>
+        <a class="btn btn-outline" href={withBase('/about/')}>Read the chapter history</a>
       </div>
 
       <div class="crest" data-reveal>

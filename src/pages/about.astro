@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
 import fs from 'node:fs';
+import { withBase } from '../lib/paths';
 
 // All prose on this page is verbatim from content/about.md — edit there first.
 
@@ -104,7 +105,7 @@ const regions = [
         are in a network of elite companies that span a wide range of engineering
         disciplines.
       </p>
-      <p class="section-link"><a href="/brothers/">Meet the brothers</a></p>
+      <p class="section-link"><a href={withBase('/brothers/')}>Meet the brothers</a></p>
 
       <h3 class="logo-title" id="work-here">We work here</h3>
       <ul class="logo-field" aria-labelledby="work-here">
@@ -151,7 +152,7 @@ const regions = [
         {orgs.map((o) => (
           <li style={`--dur:${o.dur}s; --delay:${o.delay}s`}>
             <img
-              src={`/img/orgs/${o.slug}.webp`}
+              src={withBase(`/img/orgs/${o.slug}.webp`)}
               alt={o.name}
               width={o.w}
               height={o.h}
