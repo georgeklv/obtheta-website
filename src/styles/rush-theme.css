@@ -31,3 +31,14 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+/* Shield emblem — the season's background mark, sat behind the rush hero.
+   Concentric rings in chapter garnet with a navy centre; drawn as geometry
+   so no published artwork is reproduced. Swap or delete with the theme. */
+.rush-shield {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 220 220%22%3E%3Ccircle cx%3D%22110%22 cy%3D%22110%22 r%3D%22110.00%22 fill%3D%22%237A1420%22%2F%3E%3Ccircle cx%3D%22110%22 cy%3D%22110%22 r%3D%2290.20%22 fill%3D%22%23FFFFFF%22%2F%3E%3Ccircle cx%3D%22110%22 cy%3D%22110%22 r%3D%2270.40%22 fill%3D%22%237A1420%22%2F%3E%3Ccircle cx%3D%22110%22 cy%3D%22110%22 r%3D%2250.60%22 fill%3D%22%231C2C4C%22%2F%3E%3Cpath d%3D%22M 110.00 72.60 L 118.40 98.44 L 145.57 98.44 L 123.59 114.41 L 131.98 140.26 L 110.00 124.29 L 88.02 140.26 L 96.41 114.41 L 74.43 98.44 L 101.60 98.44 Z%22 fill%3D%22%23FFFFFF%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.13;
+}

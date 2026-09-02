@@ -39,6 +39,7 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
 >
   <div class="rush-page on-dark">
     <header class="rush-hero container">
+      <div class="rush-shield" aria-hidden="true"></div>
       <div class="rush-hero-main">
         <h1 class="rush-headline">{headline}</h1>
         <p class="rush-sub">
@@ -151,9 +152,26 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
   .rush-page p { color: var(--rush-fg); }
 
   .rush-hero {
+    position: relative;
     padding-top: var(--sp-7);
     display: grid;
     gap: var(--sp-5);
+  }
+  /* Behind every element in this section */
+  .rush-shield {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(46rem, 128vw);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .rush-hero-main,
+  .rush-hero .rush-flyer {
+    position: relative;
+    z-index: 1;
   }
   @media (min-width: 48rem) {
     .rush-hero {
