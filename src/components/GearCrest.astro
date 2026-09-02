@@ -1,0 +1,126 @@
+---
+/*
+  Heraldic gear — the experiment/heraldic take on the hero centrepiece.
+
+  The reason this reads better than the steel version: it is part of the
+  chapter's colour system rather than a grey mechanical drawing sitting
+  beside it. Garnet body, gold teeth outline, dark garnet hub, gold bolts,
+  and the letters at the centre so the gear carries the mark instead of
+  merely decorating it.
+
+  Geometry is generated here at build time, not in the browser, so the shape
+  is in the HTML on first paint. Flat fills throughout — no gradients.
+*/
+interface Props {
+  class?: string;
+  teeth?: number;
+}
+const { class: className = '', teeth = 12 } = Astro.props;
+
+/** Trapezoidal spur-gear outline: tip land, flank, root land, flank. */
+function gearPath(cx: number, cy: number, rootR: number, tipR: number, n: number) {
+  const step = (Math.PI * 2) / n;
+  // Fractions of one tooth pitch given to the tip land and the root land.
+  const tip = step * 0.30;
+  const root = step * 0.34;
+  const pts: string[] = [];
+  const at = (r: number, a: number) =>
+    `${(cx + Math.cos(a) * r).toFixed(2)},${(cy + Math.sin(a) * r).toFixed(2)}`;
+
+  for (let i = 0; i < n; i++) {
+    const a = i * step - Math.PI / 2;
+    pts.push(at(tipR, a - tip / 2));
+    pts.push(at(tipR, a + tip / 2));
+    pts.push(at(rootR, a + tip / 2 + (step - tip - root) / 2));
+    pts.push(at(rootR, a + step - root / 2 - (step - tip - root) / 2));
+  }
+  return 'M' + pts.join('L') + 'Z';
+}
+
+const body = gearPath(100, 100, 78, 93, teeth);
+
+// Six bolt heads on the hub ring.
+const bolts = Array.from({ length: 6 }, (_, i) => {
+  const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
+  return { x: +(100 + Math.cos(a) * 38).toFixed(2), y: +(100 + Math.sin(a) * 38).toFixed(2) };
+});
+---
+<svg
+  class={`gc ${className}`}
+  viewBox="0 0 200 200"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Theta Tau gear, marked Omicron Beta, founded 1904 and 1988"
+>
+  <!-- Body -->
+  <path d={body} class="gc-body" />
+
+  <!-- Rim rules, just inside the roots -->
+  <circle cx="100" cy="100" r="66" class="gc-rule" stroke-width="1" opacity="0.55" />
+  <circle cx="100" cy="100" r="62" class="gc-rule" stroke-width="0.4" opacity="0.45" />
+
+  <!-- Hub disc -->
+  <circle cx="100" cy="100" r="52" class="gc-hub" />
+  <circle cx="100" cy="100" r="52" class="gc-rule" stroke-width="0.8" opacity="0.7" />
+
+  {bolts.map((b) => <circle cx={b.x} cy={b.y} r="2.4" class="gc-bolt" />)}
+</svg>
+
+<!--
+  The centre mark is deliberately NOT inside the svg above: that svg is what
+  the hero script rotates, and the letters must stay upright while it turns.
+-->
+<span class="gc-mark" aria-hidden="true">
+  <span class="gc-letters">ΘΤ</span>
+  <span class="gc-divider"></span>
+  <span class="gc-years">1904 · 1988</span>
+</span>
+
+<style>
+  .gc { display: block; width: 100%; height: auto; }
+
+  .gc-body {
+    fill: var(--tt-garnet);
+    stroke: var(--tt-gold);
+    stroke-width: 0.7;
+    stroke-linejoin: miter;
+  }
+  .gc-hub  { fill: var(--tt-garnet-deep); }
+  .gc-rule { fill: none; stroke: var(--tt-gold); }
+  .gc-bolt { fill: var(--tt-gold); }
+
+  /* Static centre mark, sized off the gear box so it tracks the clamp. */
+  .gc-mark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center;
+  }
+  .gc-letters {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(2rem, 9cqi, 4rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--tt-paper);
+  }
+  .gc-divider {
+    width: clamp(1.75rem, 8cqi, 3.5rem);
+    height: 1px;
+    background: var(--tt-gold);
+    margin: clamp(0.4rem, 2cqi, 0.9rem) 0;
+  }
+  .gc-years {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: clamp(0.5rem, 2.1cqi, 0.8125rem);
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    color: var(--tt-gold);
+  }
+</style>

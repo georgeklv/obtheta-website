@@ -12,10 +12,22 @@
   --tt-ink:       #2E2E2E;
   --tt-rule:      #D8D6D4;
 
-  /* Page ground — engineering paper. Deliberately lighter and less saturated
-     than a cream; the grid does the work, not the tint. */
-  --tt-paper:     #FAF9F6;
-  --paper-grid:   url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Cpath d%3D%22M16 0V80M0 16H80M32 0V80M0 32H80M48 0V80M0 48H80M64 0V80M0 64H80%22 stroke%3D%22%23B9B3A6%22 stroke-width%3D%220.5%22 opacity%3D%220.30%22 fill%3D%22none%22%2F%3E%3Cpath d%3D%22M0 0V80M0 0H80%22 stroke%3D%22%23AFA89A%22 stroke-width%3D%220.9%22 opacity%3D%220.42%22 fill%3D%22none%22%2F%3E%3C%2Fsvg%3E");
+  /* EXPERIMENT (branch: experiment/heraldic) -------------------------
+     Gold accent + parchment ground, drawn from the one-shot comp. Gold is
+     the metal that garnet sits against; it never carries body text.
+       gold on parchment      1.98:1  — decorative rules and marks ONLY
+       gold-dim on parchment  3.83:1  — large text only
+       gold on garnet-deep    7.40:1  — AAA, safe for numerals and labels
+     ------------------------------------------------------------------ */
+  --tt-gold:        #C9A55C;
+  --tt-gold-dim:    #8F7330;
+  --tt-garnet-deep: #3A0808;
+
+  /* Page ground — parchment. Warm and yellow-leaning, which is what makes
+     the garnet read as heraldic rather than corporate. Kept well clear of
+     the banned cream #F4F1EA: this is 5 points yellower in blue. */
+  --tt-paper:     #F4ECD8;
+  --paper-grid:   url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Cpath d%3D%22M16 0V80M0 16H80M32 0V80M0 32H80M48 0V80M0 48H80M64 0V80M0 64H80%22 stroke%3D%22%23C3B389%22 stroke-width%3D%220.5%22 opacity%3D%220.30%22 fill%3D%22none%22%2F%3E%3Cpath d%3D%22M0 0V80M0 0H80%22 stroke%3D%22%23B5A275%22 stroke-width%3D%220.9%22 opacity%3D%220.42%22 fill%3D%22none%22%2F%3E%3C%2Fsvg%3E");
 
   /* Type — families */
   --font-wordmark: 'Goku', 'Archivo', sans-serif;          /* hero only */

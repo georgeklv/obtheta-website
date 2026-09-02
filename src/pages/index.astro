@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
-import GearSolid from '../components/GearSolid.astro';
+import GearCrest from '../components/GearCrest.astro';
 
 // Pillar copy is verbatim from content/about.md — do not edit here without
 // editing the source file to match.
@@ -58,7 +58,7 @@ const stats = [
       </p>
     </div>
     <div class="hero-gear" id="hero-gear" aria-hidden="true">
-      <GearSolid class="hero-gear-svg" />
+      <GearCrest class="hero-gear-svg" />
       <span class="gear-hint">Hold to drag</span>
     </div>
   </section>
@@ -81,6 +81,39 @@ const stats = [
           </div>
         ))}
       </dl>
+    </div>
+  </section>
+
+  <section class="chapter" aria-labelledby="chapter-title">
+    <div class="chapter-inner">
+      <div class="chapter-text" data-reveal>
+        <h2 id="chapter-title" class="chapter-title">
+          First on campus. <em>Founded 1988.</em>
+        </h2>
+        <p class="chapter-lead">
+          Our Omicron Beta chapter was founded at the University of
+          Michigan-Dearborn on January 16th, 1988, making it the first
+          professional fraternity on campus and spurring the growth of Greek
+          Life at UM-Dearborn.
+        </p>
+        <p>
+          Since its founding, the chapter has initiated over 290 members and has
+          become a prominent presence on campus, holding campus leadership
+          positions such as Dearborn Campus Engineers, Association for Computing
+          Machinery, InterFraternity Council, Student Government, Student
+          Activities Board, and SAE racing teams.
+        </p>
+        <a class="btn btn-outline" href="/about/">Read the chapter history</a>
+      </div>
+
+      <div class="crest" data-reveal>
+        <div class="crest-plate">
+          <span class="crest-big">Ο Β</span>
+          <span class="crest-label">Omicron Beta</span>
+          <span class="crest-divider"></span>
+          <span class="crest-founded">January 16, 1988</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -110,6 +143,7 @@ const stats = [
   /* --- Hero ------------------------------------------------------- */
   .hero {
     position: relative;
+    --hero-gear-size: clamp(14rem, 34vmin, 26rem);
     min-height: calc(100svh - 3.5rem);
     display: flex;
     align-items: center;
@@ -142,6 +176,14 @@ const stats = [
     width: 100%;
     margin-inline: auto;
     padding-inline: var(--gutter);
+  }
+  @media (min-width: 56rem) {
+    .hero-inner {
+      padding-right: calc(var(--hero-gear-size) * 0.85 + var(--gutter));
+    }
+    /* The identity lines are long and the column is now narrower, so let the
+       break fall evenly instead of orphaning the last word. */
+    .hero-line { text-wrap: balance; }
   }
   .wordmark {
     font-family: var(--font-wordmark);
@@ -178,12 +220,12 @@ const stats = [
   }
   .hero-gear {
     position: absolute;
-    right: calc(-0.5 * var(--hero-gear-size));
+    right: calc(-0.06 * var(--hero-gear-size));
     top: 50%;
     margin-top: calc(-0.5 * var(--hero-gear-size));
     width: var(--hero-gear-size);
     height: var(--hero-gear-size);
-    --hero-gear-size: clamp(16rem, 45vmin, 34rem);
+    container-type: inline-size;
     cursor: grab;
     touch-action: none;
   }
@@ -195,7 +237,7 @@ const stats = [
     position: absolute;
     top: calc(100% + 0.625rem);
     left: 0;
-    right: 50%;
+    right: 0;
     text-align: center;
     font-family: var(--font-head);
     font-size: var(--fs-caption);
@@ -215,7 +257,7 @@ const stats = [
     .hero { align-items: flex-start; padding-top: var(--sp-6); }
     .hero-gear {
       top: auto;
-      bottom: calc(-0.25 * var(--hero-gear-size));
+      bottom: calc(-0.08 * var(--hero-gear-size));
       margin-top: 0;
     }
   }
@@ -284,6 +326,114 @@ const stats = [
   /* The last pillar band runs flush into the footer */
   :global(.site-footer) { margin-top: 0; }
 
+  /* --- Chapter panel (experiment/heraldic) ------------------------- */
+  .chapter {
+    border-block: var(--rule-hairline);
+  }
+  .chapter-inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding: var(--sp-7) var(--gutter);
+    display: grid;
+    gap: var(--sp-5);
+    align-items: center;
+  }
+  @media (min-width: 56rem) {
+    .chapter-inner {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--sp-7);
+    }
+  }
+  .chapter-title {
+    font-family: var(--font-head);
+    /* Below --fs-display: this is a section head, not a page title, and at
+       display size it wrapped to four lines and swamped the crest. */
+    font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+    line-height: var(--lh-tight);
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--sp-3);
+    color: var(--tt-black);
+  }
+  /* The italic serif clause is the whole device: one voice states the fact,
+     the other inflects it. Costs nothing, and the fonts are already loaded. */
+  .chapter-title em {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--tt-garnet);
+    letter-spacing: 0;
+  }
+  .chapter-text p {
+    max-width: var(--measure);
+    margin: 0 0 var(--sp-3);
+  }
+  .chapter-lead::first-letter {
+    float: left;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 3.6em;
+    line-height: 0.82;
+    margin: 0.06em 0.12em 0 0;
+    color: var(--tt-garnet);
+  }
+  .chapter-text .btn { margin-top: var(--sp-2); }
+
+  .crest-plate {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--tt-garnet);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--tt-paper);
+    container-type: inline-size;
+  }
+  /* Gold survey grid over the plate — the same engineering register as the
+     page ground, inverted onto the garnet. */
+  .crest-plate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Tiled as SVG rather than repeating-linear-gradient: the brief rules out
+       gradients, and this matches how --paper-grid is already built. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2239%22 height%3D%2239%22%3E%3Cpath d%3D%22M39 0V39M0 39H39%22 stroke%3D%22%23C9A55C%22 stroke-opacity%3D%220.16%22 stroke-width%3D%221%22 fill%3D%22none%22%2F%3E%3C%2Fsvg%3E");
+    pointer-events: none;
+  }
+  .crest-plate > * { position: relative; }
+  .crest-big {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(3.5rem, 26cqi, 8rem);
+    line-height: 0.85;
+    letter-spacing: 0.02em;
+  }
+  .crest-label {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: clamp(0.75rem, 3.4cqi, 1.0625rem);
+    letter-spacing: 0.34em;
+    text-indent: 0.34em;
+    text-transform: uppercase;
+    margin-top: var(--sp-2);
+  }
+  .crest-divider {
+    width: 3.75rem;
+    height: 2px;
+    background: var(--tt-gold);
+    margin: var(--sp-3) 0;
+  }
+  .crest-founded {
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-indent: 0.24em;
+    color: var(--tt-gold);
+  }
+
   /* --- Closer band ------------------------------------------------ */
   .closer { background: var(--tt-garnet); }
   .closer-inner {
@@ -314,11 +464,11 @@ const stats = [
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1px;
-    background: rgba(255, 255, 255, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(201, 165, 92, 0.42);
+    border: 1px solid rgba(201, 165, 92, 0.42);
   }
   .stat {
-    background: var(--tt-garnet);
+    background: var(--tt-garnet-deep);
     padding: var(--sp-3) var(--sp-3) var(--sp-4);
   }
   .stat-num {
@@ -326,7 +476,7 @@ const stats = [
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 3rem);
     line-height: 1;
-    color: var(--tt-white);
+    color: var(--tt-gold);
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
   }
