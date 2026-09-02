@@ -1,24 +1,6 @@
-<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
-	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
-	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
-	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
-	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
-	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
-	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
-]>
-<svg version="1.1" id="borgwarner-Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 455.4 37.6"
-	 style="enable-background:new 0 0 455.4 37.6;" xml:space="preserve" focusable="false">
-<style type="text/css">
-	.st0{fill:#051729;}
-</style>
-<metadata>
-	<sfw  xmlns="&ns_sfw;">
-		<slices></slices>
-		<sliceSourceBounds  bottomLeftOrigin="true" height="37.6" width="455.4" x="0" y="-37.6"></sliceSourceBounds>
-	</sfw>
-</metadata>
-<path class="st0" d="M309.1,21.5l15.4,15.4h-7.2l-15.1-15.4v-4.5h9.3c4.1,0,6.3-2.1,6.3-5.8c0-3.7-2.2-5.8-6.3-5.8h-17.9v31.5h-5.3
+<svg version="1.1" id="borgwarner-Layer_1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 455.4 37.6" xml:space="preserve" focusable="false">
+<path fill="#051729" d="M309.1,21.5l15.4,15.4h-7.2l-15.1-15.4v-4.5h9.3c4.1,0,6.3-2.1,6.3-5.8c0-3.7-2.2-5.8-6.3-5.8h-17.9v31.5h-5.3
 	v-36h23.2c7.3,0,11.6,3.9,11.6,10.3c0,6.5-4.3,10.3-11.6,10.3H309.1z M378,36.8h31v-4.5h-25.7V21.1H408v-4.5h-24.6V5.3H409V0.8h-31
 	V36.8z M361.7,29L338.1,0.8l0,0h-5.3v36h5.3V8.6l23.7,28.2h5.2v-36h-5.3V29z M248.5,0.9l-25.6,28.4V0.9h-5.2L192,29.4V0.9h-5.3v35.9
 	h5.3l25.5-28.4v28.4h5.3l32.3-35.9H248.5z M271.4,0.9h5.2v35.9h-5.3v-8.4h-18l-7.6,8.4h-6.7L271.4,0.9z M257.4,23.8h13.9V8.4
