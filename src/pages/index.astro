@@ -358,7 +358,9 @@ const stats = [
   /* Draggable hero gear — grab, spin, momentum, friction. */
   const gear = document.getElementById('hero-gear');
   if (gear && !reduced) {
-    const svg = gear.querySelector('svg')!;
+    /* Only the metal turns; the lighting layer stays fixed so the highlight
+       reads as a light source in the room rather than paint on the part. */
+    const metal = gear.querySelector<SVGGElement>('.gear-spin')!;
     gear.removeAttribute('aria-hidden');
     gear.setAttribute('role', 'img');
     gear.setAttribute('tabindex', '0');
@@ -401,7 +403,7 @@ const stats = [
       if (dt > 0) vel = d / dt;
       lastPointerAngle = a;
       lastMoveTime = now;
-      svg.style.transform = `rotate(${angle}rad)`;
+      metal.setAttribute('transform', `rotate(${(angle * 180) / Math.PI})`);
     });
     const release = () => {
       dragging = false;
@@ -421,7 +423,7 @@ const stats = [
       if (!dragging && Math.abs(vel) > 0.02) {
         angle += vel * dt;
         vel *= Math.exp(-1.4 * dt); // friction
-        svg.style.transform = `rotate(${angle}rad)`;
+        metal.setAttribute('transform', `rotate(${(angle * 180) / Math.PI})`);
       }
       requestAnimationFrame(spin);
     };
