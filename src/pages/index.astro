@@ -386,30 +386,9 @@ const stats = [
   }
   .chapter-text .btn { margin-top: var(--sp-2); }
 
-  /* The plate is meant to read as an object resting on the ruled paper.
-     The mat is flat --tt-paper with no grid, so the ruling visibly stops at
-     its edge; the offset rule behind it gives lift without a shadow. */
-  .crest {
-    position: relative;
-    padding: var(--sp-2);
-    background: var(--tt-paper);
-    border: 1px solid var(--tt-rule);
-  }
-  .crest::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    transform: translate(0.625rem, 0.625rem);
-    border: 1px solid var(--tt-ink);
-    opacity: 0.45;
-    z-index: -1;
-    pointer-events: none;
-  }
   .crest-plate {
-    position: relative;
-    z-index: 1;
     aspect-ratio: 4 / 5;
-    background-color: var(--tt-garnet);
+    background: var(--tt-garnet);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -417,21 +396,7 @@ const stats = [
     text-align: center;
     color: var(--tt-paper);
     container-type: inline-size;
-    /* Tiled as SVG rather than repeating-linear-gradient: the brief rules out
-       gradients, and this matches how --paper-grid is already built. */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2239%22 height%3D%2239%22%3E%3Cpath d%3D%22M39 0V39M0 39H39%22 stroke%3D%22%23C9A55C%22 stroke-opacity%3D%220.16%22 stroke-width%3D%221%22 fill%3D%22none%22%2F%3E%3C%2Fsvg%3E");
   }
-  /* Gold survey grid over the plate — the same engineering register as the
-     page ground, inverted onto the garnet. */
-  .crest-plate::before {
-    content: '';
-    position: absolute;
-    inset: 0.5rem;
-    border: 1px solid var(--tt-gold);
-    opacity: 0.45;
-    pointer-events: none;
-  }
-  .crest-plate > * { position: relative; }
   .crest-big {
     font-family: var(--font-body);
     font-style: italic;
