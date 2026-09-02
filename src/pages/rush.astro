@@ -39,41 +39,39 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
 >
   <div class="rush-page on-dark">
     <header class="rush-hero container">
-      <h1 class="rush-headline">{headline}</h1>
-      <p class="rush-sub">
-        Omicron Beta Chapter, University of Michigan-Dearborn
-      </p>
-      <div class="rush-actions">
-        {actions.map((a) => (
-          <a class={`btn ${a.primary ? 'btn-primary' : 'btn-outline'}`} href={a.href}>{a.label}</a>
-        ))}
+      <div class="rush-hero-main">
+        <h1 class="rush-headline">{headline}</h1>
+        <p class="rush-sub">
+          Omicron Beta Chapter, University of Michigan-Dearborn
+        </p>
+        <div class="rush-actions">
+          {actions.map((a) => (
+            <a class={`btn ${a.primary ? 'btn-primary' : 'btn-outline'}`} href={a.href}>{a.label}</a>
+          ))}
+        </div>
+        <ul class="rush-links">
+          {links.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
       </div>
-      <ul class="rush-links">
-        {links.map((l) => (
-          <li><a href={l.href}>{l.label}</a></li>
-        ))}
-      </ul>
+      <figure class="rush-flyer">
+        <a href="https://drive.google.com/file/d/16LDKj8M_E51f9mDFQR1jW9Mfru47l0RW/view">
+            <img
+            src="/img/rush-flyer-fall-2026.webp"
+            alt="Fall 2026 rush flyer listing all twelve events, September 5 through 25"
+            width="900"
+            height="1274"
+            loading="lazy"
+          />
+        </a>
+        <figcaption>The Fall 2026 flyer — tap it for the full-size version.</figcaption>
+        </figure>
     </header>
 
     <section class="container rush-section" aria-labelledby="rushing-title">
-      <div class="rush-intro">
-        <figure class="rush-flyer">
-          <a href="https://drive.google.com/file/d/16LDKj8M_E51f9mDFQR1jW9Mfru47l0RW/view">
-            <img
-              src="/img/rush-flyer-fall-2026.webp"
-              alt="Fall 2026 rush flyer listing all twelve events, September 5 through 25"
-              width="900"
-              height="1274"
-              loading="lazy"
-            />
-          </a>
-          <figcaption>The Fall 2026 flyer — tap it for the full-size version.</figcaption>
-        </figure>
-        <div class="rush-intro-text">
-          <h2 id="rushing-title">{rushingTitle}</h2>
-          {rushingParas.map((p) => <p>{p}</p>)}
-        </div>
-      </div>
+      <h2 id="rushing-title">{rushingTitle}</h2>
+      {rushingParas.map((p) => <p>{p}</p>)}
     </section>
 
     <section class="container rush-section" aria-labelledby="req-title">
@@ -152,7 +150,18 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
   }
   .rush-page p { color: var(--rush-fg); }
 
-  .rush-hero { padding-top: var(--sp-7); }
+  .rush-hero {
+    padding-top: var(--sp-7);
+    display: grid;
+    gap: var(--sp-5);
+  }
+  @media (min-width: 48rem) {
+    .rush-hero {
+      grid-template-columns: 1fr minmax(14rem, 19rem);
+      gap: var(--sp-6);
+      align-items: start;
+    }
+  }
   .rush-headline {
     font-family: var(--rush-display);
     font-weight: 400;
@@ -190,14 +199,6 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
   }
 
   .rush-section { margin-top: var(--sp-7); }
-  .rush-intro { display: grid; gap: var(--sp-5); }
-  @media (min-width: 48rem) {
-    .rush-intro {
-      grid-template-columns: minmax(14rem, 20rem) 1fr;
-      gap: var(--sp-6);
-      align-items: start;
-    }
-  }
   .rush-flyer { margin: 0; }
   .rush-flyer img {
     width: 100%;
