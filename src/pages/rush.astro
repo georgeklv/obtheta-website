@@ -69,19 +69,19 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
         </figure>
     </header>
 
-    <section class="container rush-section" aria-labelledby="rushing-title">
+    <section class="container rush-section" data-reveal aria-labelledby="rushing-title">
       <h2 id="rushing-title">{rushingTitle}</h2>
       {rushingParas.map((p) => <p>{p}</p>)}
     </section>
 
-    <section class="container rush-section" aria-labelledby="req-title">
+    <section class="container rush-section" data-reveal aria-labelledby="req-title">
       <h2 id="req-title">Requirements</h2>
       <ul class="req-list">
         {requirements.map((r) => <li>{r}</li>)}
       </ul>
     </section>
 
-    <section class="container rush-section" aria-labelledby="cal-title">
+    <section class="container rush-section" data-reveal aria-labelledby="cal-title">
       <h2 id="cal-title">{rush.season} events</h2>
       {events.length === 0 && (
         <div class="cal-empty">
@@ -111,7 +111,7 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
       )}
     </section>
 
-    <section class="container rush-section" aria-labelledby="contact-title">
+    <section class="container rush-section" data-reveal aria-labelledby="contact-title">
       <h2 id="contact-title">Rush contacts</h2>
       <ul class="contacts">
         <li>

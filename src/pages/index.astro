@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
 import GearSolid from '../components/GearSolid.astro';
-import GearTrain from '../components/GearTrain.astro';
+import roster from '../../data/brothers.json';
 
 // Pillar copy is verbatim from content/about.md — do not edit here without
 // editing the source file to match.
@@ -19,6 +19,18 @@ const pillars = [
     name: 'Brotherhood',
     copy: 'We forge lifelong bonds of fraternal friendship, a journey that develops and delivers a network of lasting personal and professional relationships. We foster an inviting, safe, and social environment in which our members become lifelong friends.',
   },
+];
+
+// Every figure below is drawn from the chapter's own content or data — the
+// roster file, about.md, and the company list already on /about. Nothing here
+// is estimated.
+const rosterCount = roster.brothers.length;
+const yearsOnCampus = new Date().getFullYear() - 1988;
+const stats = [
+  { to: rosterCount, suffix: '', label: 'Brothers initiated at Omicron Beta' },
+  { to: yearsOnCampus, suffix: '', label: 'Years on campus since 1988' },
+  { to: 18, suffix: '', label: 'Companies in the alumni network' },
+  { to: 40000, suffix: '+', label: 'Initiated nationally since 1904' },
 ];
 ---
 <Base
@@ -39,14 +51,37 @@ const pillars = [
     <div class="hero-inner">
       <h1 class="wordmark">Theta&nbsp;Tau</h1>
       <p class="hero-line hero-line-1">
-        Professional Engineering Fraternity · Omicron Beta Chapter
+        <span class="visually-hidden">Professional Engineering Fraternity · Omicron Beta Chapter</span>
+        <span class="type" data-type-order="0" aria-hidden="true">Professional Engineering Fraternity · Omicron Beta Chapter</span>
       </p>
       <p class="hero-line hero-line-2">
-        University of Michigan-Dearborn · Founded 1988
+        <span class="visually-hidden">University of Michigan-Dearborn · Founded 1988</span>
+        <span class="type" data-type-order="1" aria-hidden="true">University of Michigan-Dearborn · Founded 1988</span>
       </p>
     </div>
     <div class="hero-gear" id="hero-gear" aria-hidden="true">
       <GearSolid class="hero-gear-svg" />
+    </div>
+  </section>
+
+  <section class="closer on-dark">
+    <div class="closer-inner">
+      <div class="closer-text">
+        <p class="closer-line">
+          Theta Tau is a Co-Ed Professional Engineering Fraternity.
+        </p>
+        <a class="btn btn-outline" href="/rush/">Rush Fall 2026</a>
+      </div>
+      <dl class="stats">
+        {stats.map((st, i) => (
+          <div class="stat" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+            <dt class="stat-num">
+              <span data-count-to={st.to}>0</span>{st.suffix}
+            </dt>
+            <dd class="stat-label">{st.label}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   </section>
 
@@ -58,7 +93,7 @@ const pillars = [
             <span>Photograph to come — {p.name}</span>
           </div>
         </div>
-        <div class="band-text">
+        <div class="band-text" data-reveal>
           <h2 class="pillar-name">{p.name}</h2>
           <p>{p.copy}</p>
         </div>
@@ -70,16 +105,6 @@ const pillars = [
     </div>
   </section>
 
-  <section class="closer on-dark">
-    <div class="closer-inner">
-      <p class="closer-line">
-        Theta Tau is a Co-Ed Professional Engineering Fraternity.
-      </p>
-      <a class="btn btn-outline" href="/rush/">Rush Fall 2026</a>
-    </div>
-  </section>
-
-  <GearTrain />
 </Base>
 
 <style>
@@ -236,7 +261,7 @@ const pillars = [
     .scroll-gear { display: none; }
   }
 
-  /* Train sits flush between the closer band and the footer */
+  /* The last pillar band runs flush into the footer */
   :global(.site-footer) { margin-top: 0; }
 
   /* --- Closer band ------------------------------------------------ */
@@ -244,19 +269,93 @@ const pillars = [
   .closer-inner {
     max-width: var(--container);
     margin-inline: auto;
-    padding: var(--sp-7) var(--gutter);
+    padding: var(--sp-6) var(--gutter);
+    display: grid;
+    gap: var(--sp-5);
+  }
+  @media (min-width: 56rem) {
+    .closer-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: var(--sp-7);
+      align-items: center;
+    }
   }
   .closer-line {
     color: var(--tt-white);
     font-size: clamp(1.375rem, 3vw, 2rem);
     font-weight: 600;
-    max-width: 24ch;
-    margin-bottom: var(--sp-5);
+    max-width: 22ch;
+    margin-bottom: var(--sp-4);
+  }
+
+  /* Counting figures — every number is drawn from chapter content */
+  .stats {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+  }
+  .stat {
+    background: var(--tt-garnet);
+    padding: var(--sp-3) var(--sp-3) var(--sp-4);
+  }
+  .stat-num {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1;
+    color: var(--tt-white);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    margin: var(--sp-1) 0 0;
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: 0.03em;
+    color: var(--tt-white);
+    text-transform: uppercase;
   }
 </style>
 
 <script>
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Hero identity lines type themselves in, one after the other. The full
+     text is already in the DOM for assistive tech; these spans are the
+     visual copy only. */
+  const typed = Array.from(
+    document.querySelectorAll<HTMLElement>('.hero-line .type')
+  ).sort((a, b) => Number(a.dataset.typeOrder) - Number(b.dataset.typeOrder));
+
+  if (typed.length && !reduced) {
+    const SPEED = 26; // ms per character
+    const texts = typed.map((el) => el.textContent ?? '');
+    typed.forEach((el) => { el.textContent = ''; });
+
+    const typeOne = (i: number) => {
+      if (i >= typed.length) return;
+      const el = typed[i];
+      const text = texts[i];
+      el.classList.add('type-caret');
+      let n = 0;
+      const step = () => {
+        el.textContent = text.slice(0, ++n);
+        if (n < text.length) {
+          window.setTimeout(step, SPEED);
+        } else {
+          el.classList.remove('type-caret');
+          window.setTimeout(() => typeOne(i + 1), 260);
+        }
+      };
+      window.setTimeout(step, i === 0 ? 420 : 0);
+    };
+    typeOne(0);
+  }
 
   /* Draggable hero gear — grab, spin, momentum, friction. */
   const gear = document.getElementById('hero-gear');

@@ -23,6 +23,38 @@ const logos = companies.map(([slug, name], i) => ({
   delay: (-(i * 3.1) % 20).toFixed(1),
 }));
 
+// A document index — this page is a four-part chapter record, so the
+// numbering marks real structure and doubles as in-page navigation.
+const sections = [
+  { n: '01', id: 'network-title', label: 'Our Network' },
+  { n: '02', id: 'ob-title', label: 'Omicron Beta' },
+  { n: '03', id: 'tt-title', label: 'Theta Tau' },
+  { n: '04', id: 'glr-title', label: 'Great Lakes Region' },
+];
+
+// Facts lifted from the prose below — same claims, read at a glance.
+const chapterFacts = [
+  ['Founded', 'January 16, 1988'],
+  ['Campus', 'University of Michigan-Dearborn'],
+  ['Distinction', 'First professional fraternity at UM-Dearborn'],
+  ['Supported by', 'College of Engineering and Computer Science'],
+];
+const nationalFacts = [
+  ['Founded', 'University of Minnesota, 1904'],
+  ['Members initiated', 'Over 40,000'],
+  ['Chapters', 'ABET-accredited schools only'],
+];
+
+// The campus leadership positions named in the paragraph below.
+const leadership = [
+  'Dearborn Campus Engineers',
+  'Association for Computing Machinery',
+  'InterFraternity Council',
+  'Student Government',
+  'Student Activities Board',
+  'SAE racing teams',
+];
+
 const regions = [
   ['Delta', 'Case Western Reserve University'],
   ['Sigma', 'Ohio State University'],
@@ -42,11 +74,23 @@ const regions = [
   <div class="page">
     <header class="container">
       <h1 class="page-title">About</h1>
+      <nav class="index" aria-label="On this page">
+        <ol>
+          {sections.map((sec) => (
+            <li>
+              <a href={`#${sec.id}`}>
+                <span class="index-n">{sec.n}</span>
+                <span class="index-label">{sec.label}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
     </header>
 
     <!-- 1 · Our Network -->
-    <section class="container section" aria-labelledby="network-title">
-      <h2 id="network-title">Our Network</h2>
+    <section class="container section" data-reveal aria-labelledby="network-title">
+      <h2 id="network-title"><span class="sec-n">01</span>Our Network</h2>
       <p>
         In Theta Tau, we value education beyond the limits of the classroom. In
         order to develop professionally, we hold resume workshops, mock
@@ -57,7 +101,8 @@ const regions = [
       </p>
       <p class="section-link"><a href="/brothers/">Meet the brothers</a></p>
 
-      <ul class="logo-field" aria-label="Companies where brothers work">
+      <h3 class="logo-title" id="work-here" data-reveal>We work here</h3>
+      <ul class="logo-field" aria-labelledby="work-here">
         {logos.map((l) => (
           <li style={`--dur:${l.dur}s; --delay:${l.delay}s`}>
             <Fragment set:html={l.svg} />
@@ -67,8 +112,8 @@ const regions = [
     </section>
 
     <!-- 2 · Omicron Beta -->
-    <section class="container section" aria-labelledby="ob-title">
-      <h2 id="ob-title">Omicron Beta</h2>
+    <section class="container section" data-reveal aria-labelledby="ob-title">
+      <h2 id="ob-title"><span class="sec-n">02</span>Omicron Beta</h2>
       <p>
         Our Omicron Beta chapter was founded at the University of
         Michigan-Dearborn on January 16th, 1988, making it the first professional
@@ -78,13 +123,23 @@ const regions = [
         University of Michigan-Dearborn's College of Engineering and Computer
         Science.
       </p>
+      <dl class="facts" data-reveal>
+        {chapterFacts.map(([k, v]) => (
+          <div class="fact">
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+
       <p>
         Since its founding, the chapter has initiated over 240 members and has
         become a prominent presence on campus, holding campus leadership
-        positions such as Dearborn Campus Engineers, Association for Computing
-        Machinery, InterFraternity Council, Student Government, Student
-        Activities Board, and SAE racing teams.
+        positions such as:
       </p>
+      <ul class="named-list">
+        {leadership.map((org) => <li>{org}</li>)}
+      </ul>
       <p>
         Each semester, the chapter hosts professional, philanthropic, and social
         events in the community. Members of Omicron Beta attend leadership
@@ -97,9 +152,9 @@ const regions = [
     </section>
 
     <!-- 3 · Theta Tau -->
-    <section class="section" aria-labelledby="tt-title">
+    <section class="section" data-reveal aria-labelledby="tt-title">
       <div class="container">
-        <h2 id="tt-title">Theta Tau</h2>
+        <h2 id="tt-title"><span class="sec-n">03</span>Theta Tau</h2>
         <p>
           Theta Tau is the oldest, largest, and foremost fraternity for
           engineers. Since its founding at the University of Minnesota in 1904,
@@ -107,6 +162,15 @@ const regions = [
           and a strong fraternal bond, the fraternity has chapters only at
           ABET-accredited schools.
         </p>
+        <dl class="facts" data-reveal>
+          {nationalFacts.map(([k, v]) => (
+            <div class="fact">
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+
         <h3 class="sub">Purpose</h3>
         <p>
           The purpose of Theta Tau is to develop and maintain a high standard of
@@ -167,8 +231,8 @@ const regions = [
     </section>
 
     <!-- 4 · Great Lakes Region -->
-    <section class="container section" aria-labelledby="glr-title">
-      <h2 id="glr-title">Great Lakes Region Chapters</h2>
+    <section class="container section" data-reveal aria-labelledby="glr-title">
+      <h2 id="glr-title"><span class="sec-n">04</span>Great Lakes Region Chapters</h2>
       <table class="region">
         <thead>
           <tr>
@@ -203,6 +267,104 @@ const regions = [
     border-bottom: var(--rule-strong);
     padding-bottom: var(--sp-3);
   }
+  /* Document index */
+  .index { margin-top: var(--sp-4); }
+  .index ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1px;
+    background: var(--tt-rule);
+    border: 1px solid var(--tt-rule);
+  }
+  @media (min-width: 40rem) {
+    .index ol { grid-template-columns: repeat(4, 1fr); }
+  }
+  .index a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    background: var(--tt-white);
+    padding: var(--sp-2) var(--sp-3);
+    text-decoration: none;
+    font-family: var(--font-head);
+  }
+  .index a:hover { background: var(--tt-black); color: var(--tt-white); }
+  .index-n {
+    font-size: var(--fs-caption);
+    font-weight: 700;
+    color: var(--tt-garnet);
+    font-variant-numeric: tabular-nums;
+  }
+  .index a:hover .index-n { color: var(--tt-white); }
+  .index-label { font-size: var(--fs-ui); font-weight: 600; }
+
+  /* Section numbers */
+  .sec-n {
+    display: inline-block;
+    margin-right: 0.625rem;
+    font-size: 0.5em;
+    font-weight: 700;
+    color: var(--tt-garnet);
+    vertical-align: 0.35em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Fact register — the prose's claims, read at a glance */
+  .facts {
+    margin: var(--sp-4) 0 var(--sp-4);
+    display: grid;
+    gap: 1px;
+    background: var(--tt-rule);
+    border-block: 1px solid var(--tt-rule);
+  }
+  @media (min-width: 44rem) {
+    .facts { grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+  }
+  .fact { background: var(--tt-white); padding: var(--sp-2) var(--sp-3) var(--sp-3); }
+  .fact dt {
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--tt-garnet);
+  }
+  .fact dd {
+    margin: 0.25rem 0 0;
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  /* Named list — a register, not bullets */
+  .named-list {
+    list-style: none;
+    margin: var(--sp-3) 0 0;
+    padding: 0;
+    max-width: 40rem;
+    columns: 2;
+    column-gap: var(--sp-5);
+  }
+  @media (max-width: 34rem) { .named-list { columns: 1; } }
+  .named-list li {
+    font-family: var(--font-head);
+    font-size: var(--fs-ui);
+    font-weight: 500;
+    padding: 0.5rem 0;
+    border-bottom: var(--rule-hairline);
+    break-inside: avoid;
+  }
+
+  .logo-title {
+    margin-top: var(--sp-6);
+    font-size: var(--fs-h3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
   .section { margin-top: var(--sp-7); }
   .section h2 { margin-bottom: var(--sp-3); }
   .section p + p { margin-top: var(--sp-3); }
@@ -218,8 +380,8 @@ const regions = [
   /* --- Logo field: monochrome at rest, color on hover, slow drift -- */
   .logo-field {
     list-style: none;
-    margin: var(--sp-6) 0 0;
-    padding: var(--sp-5) 0 0;
+    margin: var(--sp-3) 0 0;
+    padding: var(--sp-4) 0 0;
     border-top: var(--rule-hairline);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
@@ -228,6 +390,7 @@ const regions = [
   }
   .logo-field li {
     animation: drift var(--dur) ease-in-out var(--delay) infinite alternate;
+    will-change: transform;
   }
   .logo-field :global(svg) {
     width: 100%;
@@ -236,10 +399,11 @@ const regions = [
   }
   .logo-field li:hover :global(svg) { filter: none; }
   @keyframes drift {
-    0%   { transform: translate(0, 0); }
-    33%  { transform: translate(3px, -4px); }
-    66%  { transform: translate(-2px, 3px); }
-    100% { transform: translate(2px, 2px); }
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    25%  { transform: translate(4px, -7px) rotate(-0.6deg); }
+    50%  { transform: translate(-3px, -3px) rotate(0.4deg); }
+    75%  { transform: translate(-5px, 6px) rotate(0.7deg); }
+    100% { transform: translate(3px, 4px) rotate(-0.3deg); }
   }
   @media (prefers-reduced-motion: reduce) {
     .logo-field li { animation: none; }

@@ -24,7 +24,7 @@ const PAGE = 20;
   <div class="page container">
     <h1 class="page-title">Brothers</h1>
 
-    <section aria-labelledby="eboard-title">
+    <section data-reveal aria-labelledby="eboard-title">
       <h2 id="eboard-title" class="section-title">Executive Board</h2>
       <ul class="eboard">
         {eboard.map((m, i) => (
@@ -44,7 +44,7 @@ const PAGE = 20;
       </ul>
     </section>
 
-    <section aria-labelledby="roster-title">
+    <section data-reveal aria-labelledby="roster-title">
       <h2 id="roster-title" class="section-title">Roster</h2>
       <p class="roster-count">
         {total} brothers, rolls OB 1 to OB {maxRoll}.

@@ -19,7 +19,7 @@ const paras = (t: string) => t.split(/\n\n+/);
     <h1 class="page-title">FAQ</h1>
 
     {groups.map((g) => (
-      <section class="faq-group" aria-labelledby={`g-${g.title.replace(/\W+/g, '-')}`}>
+      <section class="faq-group" data-reveal aria-labelledby={`g-${g.title.replace(/\W+/g, '-')}`}>
         <h2 id={`g-${g.title.replace(/\W+/g, '-')}`} class="group-title">{g.title}</h2>
         <ul class="faq-list">
           {g.ids.map((id) => {
