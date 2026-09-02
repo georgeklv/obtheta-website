@@ -71,8 +71,20 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     </header>
 
     <section class="container rush-section" data-reveal aria-labelledby="rushing-title">
-      <h2 id="rushing-title">{rushingTitle}</h2>
-      {rushingParas.map((p) => <p>{p}</p>)}
+      <div class="rushing-split">
+        <div class="rushing-text">
+          <h2 id="rushing-title">{rushingTitle}</h2>
+          {rushingParas.map((p) => <p>{p}</p>)}
+        </div>
+        <img
+          class="rushing-armor"
+          src="/img/rush-armor.webp"
+          alt=""
+          width="759"
+          height="1000"
+          loading="lazy"
+        />
+      </div>
     </section>
 
     <section class="container rush-section" data-reveal aria-labelledby="req-title">
@@ -217,6 +229,23 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
   }
 
   .rush-section { margin-top: var(--sp-7); }
+
+  /* "What is rushing?" runs beside the season's armour render */
+  .rushing-split { display: grid; }
+  .rushing-armor { display: none; }
+  @media (min-width: 56rem) {
+    .rushing-split {
+      grid-template-columns: minmax(0, 1fr) minmax(15rem, 24rem);
+      gap: var(--sp-6);
+      align-items: center;
+    }
+    .rushing-armor {
+      display: block;
+      width: 100%;
+      height: auto;
+      justify-self: end;
+    }
+  }
   .rush-flyer { margin: 0; }
   .rush-flyer img {
     width: 100%;
