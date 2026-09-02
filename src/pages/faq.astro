@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import faq from '../../content/faq.json';
+
+// Grouping aids scanning at twelve items; ids are unchanged so deep links hold.
+const groups = [
+  { title: 'About the fraternity', ids: ['faq-1', 'faq-3', 'faq-4', 'faq-5', 'faq-12'] },
+  { title: 'Joining', ids: ['faq-2', 'faq-6', 'faq-8', 'faq-9', 'faq-10'] },
+  { title: 'Membership', ids: ['faq-7', 'faq-11'] },
+];
+const byId = new Map(faq.items.map((i) => [i.id, i]));
+const paras = (t: string) => t.split(/\n\n+/);
+---
+<Base
+  title="FAQ — Theta Tau, Omicron Beta"
+  description="Answers to common questions about Theta Tau and the Omicron Beta chapter at UM-Dearborn: rushing, pledging, requirements, fees, and more."
+>
+  <div class="page container">
+    <h1 class="page-title">FAQ</h1>
+
+    {groups.map((g) => (
+      <section class="faq-group" aria-labelledby={`g-${g.title.replace(/\W+/g, '-')}`}>
+        <h2 id={`g-${g.title.replace(/\W+/g, '-')}`} class="group-title">{g.title}</h2>
+        <ul class="faq-list">
+          {g.ids.map((id) => {
+            const item = byId.get(id)!;
+            return (
+              <li class="faq-item" id={id}>
+                <h3 class="faq-q">
+                  <button
+                    type="button"
+                    class="faq-btn"
+                    aria-expanded="false"
+                    aria-controls={`${id}-panel`}
+                  >
+                    <span>{item.question}</span>
+                    <span class="faq-marker" aria-hidden="true">+</span>
+                  </button>
+                </h3>
+                <div class="faq-panel" id={`${id}-panel`} role="region" aria-labelledby={id}>
+                  <div class="faq-answer">
+                    {paras(item.answer).map((p) => <p>{p}</p>)}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .page { padding-top: var(--sp-6); }
+  .page-title {
+    font-size: var(--fs-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    border-bottom: var(--rule-strong);
+    padding-bottom: var(--sp-3);
+  }
+  .faq-group { margin-top: var(--sp-6); }
+  .group-title { font-size: var(--fs-h3); }
+  .faq-list {
+    list-style: none;
+    margin: var(--sp-2) 0 0;
+    padding: 0;
+  }
+  .faq-item { border-bottom: var(--rule-hairline); }
+  .faq-q { font-size: inherit; font-weight: inherit; }
+  .faq-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--sp-3);
+    text-align: left;
+    font-family: var(--font-head);
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: var(--sp-3) 0;
+  }
+  .faq-btn:hover { color: var(--tt-garnet); }
+  .faq-marker {
+    color: var(--tt-garnet);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 200ms ease;
+  }
+  .faq-item.open .faq-marker { transform: rotate(45deg); }
+  .faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 220ms ease;
+  }
+  .faq-item.open .faq-panel { grid-template-rows: 1fr; }
+  .faq-answer { overflow: hidden; }
+  .faq-answer p { padding-bottom: var(--sp-3); }
+  .faq-answer p + p { margin-top: calc(-1 * var(--sp-3) + 0.75rem); }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-marker, .faq-panel { transition: none; }
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll<HTMLElement>('.faq-item');
+  const setOpen = (item: HTMLElement, open: boolean) => {
+    item.classList.toggle('open', open);
+    item.querySelector('.faq-btn')!.setAttribute('aria-expanded', String(open));
+  };
+  items.forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>('.faq-btn')!;
+    btn.addEventListener('click', () => setOpen(item, !item.classList.contains('open')));
+  });
+  // Deep link: /faq#faq-8 opens that question.
+  const openFromHash = () => {
+    const target = location.hash && document.querySelector<HTMLElement>(`.faq-item${location.hash}`);
+    if (target) {
+      setOpen(target, true);
+      target.scrollIntoView();
+    }
+  };
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+</script>
