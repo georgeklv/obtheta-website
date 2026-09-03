@@ -22,13 +22,14 @@ const pillars = [
 ];
 
 // Every figure below is drawn from the chapter's own content or data — the
-// roster file, about.md, and the company list already on /about. Nothing here
-// is estimated.
+// roster file and about.md. Nothing here is estimated.
 const yearsOnCampus = new Date().getFullYear() - 1988;
-const stats = [
+// `ordinal` marks a rank rather than a quantity: it is stated outright instead
+// of counting up, which would spend most of the animation reading "0ST".
+const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] = [
   { to: 290, suffix: '+', label: 'Brothers initiated at Omicron Beta' },
   { to: yearsOnCampus, suffix: '', label: 'Years on campus since 1988' },
-  { to: 40, suffix: '+', label: 'Companies in the alumni network' },
+  { to: 1, suffix: 'st', ordinal: true, label: 'Professional fraternity on campus' },
   { to: 40000, suffix: '+', label: 'Initiated nationally since 1904' },
 ];
 ---
@@ -76,7 +77,10 @@ const stats = [
         {stats.map((st, i) => (
           <div class="stat" data-reveal style={`--reveal-delay:${i * 90}ms`}>
             <dt class="stat-num">
-              <span data-count-to={st.to}>0</span>{st.suffix}
+              {st.ordinal
+                ? <span>{st.to}</span>
+                : <span data-count-to={st.to}>0</span>}<span
+                class={st.ordinal ? 'stat-ord' : undefined}>{st.suffix}</span>
             </dt>
             <dd class="stat-label">{st.label}</dd>
           </div>
@@ -507,6 +511,13 @@ const stats = [
     color: var(--tt-gold);
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
+  }
+  /* An ordinal's letters are set below the figure's size so the numeral still
+     carries the line, the way a printed rank is set. */
+  .stat-ord {
+    font-size: 0.55em;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
   .stat-label {
     margin: var(--sp-1) 0 0;
