@@ -1,0 +1,212 @@
+---
+/*
+  A stack of chapter photographs with a tick rule beneath to switch between them.
+
+  Deliberately not a sliding carousel: the pillar bands read vertically, and a
+  horizontal slide would fight that. The frame holds still and the photograph
+  changes inside it, which reads as a plate being swapped rather than a widget
+  being operated.
+
+  The frame is inset from the band and outlined in garnet, so the photograph is
+  an object mounted on the paper rather than a bleed. That also leaves the ticks
+  a plain paper ground to sit on, and hands the left edge of the page back to
+  the scroll gear.
+
+  With no JavaScript the first photograph shows and the ticks do nothing, so
+  the band is never empty.
+*/
+interface Slide {
+  /** Base name in /img/pillars, without the width suffix or extension. */
+  name: string;
+  alt: string;
+}
+interface Props {
+  slides: Slide[];
+  /** Names the group for assistive tech, e.g. "Service". */
+  label: string;
+  class?: string;
+}
+const { slides, label, class: className = '' } = Astro.props;
+
+import { withBase } from '../lib/paths';
+const src = (name: string, w: number) => withBase(`/img/pillars/${name}-${w}.webp`);
+---
+<div
+  class={`slides ${className}`}
+  data-slides
+  role="group"
+  aria-roledescription="Photographs"
+  aria-label={label}
+>
+  <div class="slides-stage">
+    {slides.map((s, i) => (
+      <img
+        class={`slide ${i === 0 ? 'is-on' : ''}`}
+        data-slide={i}
+        src={src(s.name, 1280)}
+        srcset={`${src(s.name, 720)} 720w, ${src(s.name, 1280)} 1280w`}
+        sizes="(min-width: 48rem) 32rem, 100vw"
+        alt={s.alt}
+        aria-hidden={i === 0 ? undefined : 'true'}
+        loading="lazy"
+        decoding="async"
+      />
+    ))}
+  </div>
+
+  {slides.length > 1 && (
+    <div class="slide-ticks">
+      {slides.map((_, i) => (
+        <button
+          type="button"
+          data-dot={i}
+          aria-current={i === 0 ? 'true' : undefined}
+          aria-label={`Photograph ${i + 1} of ${slides.length}`}
+        ></button>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .slides { display: block; width: 100%; }
+
+  .slides-stage {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--tt-garnet-deep);
+    border: 2px solid var(--tt-garnet);
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 450ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .slide.is-on { opacity: 1; }
+
+  .slide-ticks {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--sp-2);
+  }
+  .slide-ticks button {
+    position: relative;
+    width: 1.75rem;
+    height: 2px;
+    padding: 0;
+    border: 0;
+    background: var(--tt-rule);
+    cursor: pointer;
+    transition: background 200ms linear;
+  }
+  /* A 2px rule is not a touch target; this widens the hit area without
+     changing the mark. */
+  .slide-ticks button::before {
+    content: '';
+    position: absolute;
+    inset: -1.125rem -0.25rem;
+  }
+  .slide-ticks button:hover { background: var(--tt-ink); }
+  .slide-ticks button[aria-current='true'] { background: var(--tt-garnet); }
+  .slide-ticks button:focus-visible {
+    outline: 2px solid var(--tt-garnet);
+    outline-offset: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide { transition: none; }
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Hovering a tick shows that photograph, but only where there is a real
+     pointer — on touch, hover fires as a tap and would double up with click. */
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const DWELL = 2500;
+
+  document.querySelectorAll<HTMLElement>('[data-slides]').forEach((group) => {
+    const slides = Array.from(group.querySelectorAll<HTMLImageElement>('[data-slide]'));
+    const ticks = Array.from(group.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    if (slides.length < 2) return;
+
+    let at = 0;
+    let timer = 0;
+    let onScreen = false;
+    let held = false; // a pointer or the keyboard focus is on the group
+
+    const show = (n: number) => {
+      at = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => {
+        s.classList.toggle('is-on', i === at);
+        if (i === at) s.removeAttribute('aria-hidden');
+        else s.setAttribute('aria-hidden', 'true');
+      });
+      ticks.forEach((t, i) => {
+        if (i === at) t.setAttribute('aria-current', 'true');
+        else t.removeAttribute('aria-current');
+      });
+    };
+
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = 0;
+    };
+    const start = () => {
+      // Never advance off screen, under the reader's hand, or against a
+      // reduced-motion preference.
+      if (timer || reduced || !onScreen || held) return;
+      timer = window.setInterval(() => show(at + 1), DWELL);
+    };
+    /* Picking a photograph restarts the dwell rather than ending it, so the
+       set keeps turning after someone has had a look. */
+    const pick = (i: number) => {
+      stop();
+      show(i);
+      start();
+    };
+
+    ticks.forEach((t, i) => {
+      t.addEventListener('click', () => pick(i));
+      if (canHover) t.addEventListener('pointerenter', () => pick(i));
+    });
+
+    // Arrow keys walk the set once a tick has focus.
+    group.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      pick(at + step);
+      ticks[at].focus();
+    });
+
+    const hold = () => { held = true; stop(); };
+    const release = () => { held = false; start(); };
+    group.addEventListener('pointerenter', hold);
+    group.addEventListener('pointerleave', release);
+    group.addEventListener('focusin', hold);
+    group.addEventListener('focusout', release);
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            onScreen = e.isIntersecting;
+            if (onScreen) start();
+            else stop();
+          }
+        },
+        { threshold: 0.35 }
+      ).observe(group);
+    } else {
+      onScreen = true;
+      start();
+    }
+  });
+</script>

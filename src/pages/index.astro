@@ -2,22 +2,54 @@
 import Base from '../layouts/Base.astro';
 import Gear from '../components/Gear.astro';
 import GearCrest from '../components/GearCrest.astro';
+import PhotoSlides from '../components/PhotoSlides.astro';
 import { withBase } from '../lib/paths';
 
 // Pillar copy is verbatim from content/about.md — do not edit here without
 // editing the source file to match.
+// Photographs are chapter-supplied and sorted into the pillar they were given
+// under. Profession has none yet, so that band keeps the empty frame.
 const pillars = [
   {
     name: 'Service',
     copy: 'We are known for our service to our college, university, and the larger community. Our service projects create a unifying environment for learning and personal growth for our members.',
+    photos: [
+      {
+        name: 'service-1',
+        alt: 'Brothers standing with shovels beside a newly planted tree on a Detroit street.',
+      },
+      {
+        name: 'service-2',
+        alt: 'Brothers in Day of Service shirts holding up a fleece blanket they tied.',
+      },
+    ],
   },
   {
     name: 'Profession',
     copy: 'We develop and nurture engineers with strong communication, problem-solving, collaboration, and leadership skills that we demonstrate in our profession, our community, and in our lives.',
+    photos: [],
   },
   {
     name: 'Brotherhood',
     copy: 'We forge lifelong bonds of fraternal friendship, a journey that develops and delivers a network of lasting personal and professional relationships. We foster an inviting, safe, and social environment in which our members become lifelong friends.',
+    photos: [
+      {
+        name: 'brotherhood-1',
+        alt: 'Brothers in chapter shirts with the UM-Dearborn goose mascot at an outdoor campus event.',
+      },
+      {
+        name: 'brotherhood-2',
+        alt: 'The chapter crowded around a table at a chapter house gathering, several in Theta Tau jerseys.',
+      },
+      {
+        name: 'brotherhood-3',
+        alt: 'Brothers gathered around a backyard fire at dusk.',
+      },
+      {
+        name: 'brotherhood-4',
+        alt: 'Brothers in masks holding paintball markers at an indoor course.',
+      },
+    ],
   },
 ];
 
@@ -126,9 +158,13 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
     {pillars.map((p, i) => (
       <article class={`band ${i % 2 === 1 ? 'band-flip' : ''}`}>
         <div class="band-photo">
-          <div class="photo-frame">
-            <span>Photograph to come — {p.name}</span>
-          </div>
+          {p.photos.length > 0 ? (
+            <PhotoSlides slides={p.photos} label={p.name} />
+          ) : (
+            <div class="photo-frame">
+              <span>Photograph to come — {p.name}</span>
+            </div>
+          )}
         </div>
         <div class="band-text" data-reveal>
           <h2 class="pillar-name">{p.name}</h2>
@@ -312,18 +348,40 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
   .band {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 88svh;
+    /* Sized so a half-width cell is close to the 4:3 of the chapter's
+       photographs on a 16:10 screen. A taller band crops the ends off group
+       photographs, which is exactly where people are standing. */
+    min-height: 62svh;
     border-top: var(--rule-hairline);
   }
-  .band-photo { display: grid; }
-  .band-photo .photo-frame { border-block: none; min-height: 20rem; }
-  .band:not(.band-flip) .band-photo .photo-frame { border-left: none; }
-  .band-flip .band-photo .photo-frame { border-right: none; }
+  /* The photograph is mounted on the paper rather than bled to the band edge,
+     which keeps the left margin free for the scroll gear and gives the ticks a
+     plain ground. */
+  .band-photo {
+    display: grid;
+    /* The cap goes on the track, not on the children: scoped styles here do
+       not reach the root element of a child component. */
+    grid-template-columns: min(32rem, 100%);
+    /* Pulled to the inner edge of its half so the photograph sits against the
+       copy it belongs to, rather than floating in the middle of the column
+       with the page's fold between them. */
+    justify-content: end;
+    align-content: center;
+    padding-block: var(--sp-5);
+    padding-inline: var(--gutter) var(--sp-3);
+  }
+  .band-photo .photo-frame { aspect-ratio: 4 / 3; min-height: 0; }
   .band-text {
     align-self: center;
     padding: var(--sp-7) var(--gutter);
   }
-  .band-flip .band-photo { order: 2; }
+  /* Flipped bands put the photograph on the right, so its inner edge is the
+     left one. */
+  .band-flip .band-photo {
+    order: 2;
+    justify-content: start;
+    padding-inline: var(--sp-3) var(--gutter);
+  }
   .band-flip .band-text { justify-self: end; }
   .pillar-name {
     font-size: var(--fs-display);
@@ -337,9 +395,14 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
   }
   @media (max-width: 47.9375rem) {
     .band { grid-template-columns: 1fr; min-height: 0; }
+    /* Stacked, there is no inner edge to lean toward. */
+    .band-photo,
+    .band-flip .band-photo {
+      justify-content: center;
+      padding-inline: var(--gutter);
+    }
     .band-flip .band-photo { order: 0; }
     .band-text { padding: var(--sp-5) var(--gutter) var(--sp-6); }
-    .band-photo .photo-frame { min-height: 14rem; }
   }
 
   /* --- Scroll gear — a dial that reads scroll progress ------------ */
