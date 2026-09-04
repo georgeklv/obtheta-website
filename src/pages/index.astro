@@ -161,8 +161,9 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
           {p.photos.length > 0 ? (
             <PhotoSlides slides={p.photos} label={p.name} />
           ) : (
-            <div class="photo-frame">
-              <span>Photograph to come — {p.name}</span>
+            <div class="photo-await">
+              <span class="photo-await-mark"><Gear /></span>
+              <span class="photo-await-label">Photographs to come</span>
             </div>
           )}
         </div>
@@ -366,14 +367,45 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
        copy it belongs to, rather than floating in the middle of the column
        with the page's fold between them. */
     justify-content: end;
-    align-content: center;
-    padding-block: var(--sp-5);
+    /* Both halves start on the same line. Centring each independently left the
+       frame and the pillar name at unrelated heights, which is what made the
+       bands read as two loose objects rather than one spread. */
+    align-content: start;
+    padding-block: var(--sp-6);
     padding-inline: var(--gutter) var(--sp-3);
   }
-  .band-photo .photo-frame { aspect-ratio: 4 / 3; min-height: 0; }
   .band-text {
-    align-self: center;
-    padding: var(--sp-7) var(--gutter);
+    align-self: start;
+    padding: var(--sp-6) var(--gutter);
+  }
+  /* Profession has no photographs yet. An empty outline reads as a hole between
+     two photographed bands, so the frame holds a garnet plate instead — the
+     same object in the same place, honest about what it is waiting for. */
+  .photo-await {
+    aspect-ratio: 4 / 3;
+    background: var(--tt-garnet);
+    border: 2px solid var(--tt-garnet);
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--sp-3);
+  }
+  /* Sized and coloured on a wrapper this file owns: a scoped rule cannot reach
+     the root element of a child component, and the gear inherits currentColor
+     and fills its parent's width. */
+  .photo-await-mark {
+    display: block;
+    width: 4.5rem;
+    color: var(--tt-gold);
+    opacity: 0.75;
+  }
+  .photo-await-label {
+    font-family: var(--font-head);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tt-gold);
   }
   /* Flipped bands put the photograph on the right, so its inner edge is the
      left one. */
@@ -384,6 +416,9 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
   }
   .band-flip .band-text { justify-self: end; }
   .pillar-name {
+    /* Pull the cap line up to the frame's top edge — the em box carries about
+       0.13em of clearance above the caps at this weight. */
+    margin-top: -0.13em;
     font-size: var(--fs-display);
     font-weight: 700;
     letter-spacing: -0.02em;
