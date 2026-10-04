@@ -199,7 +199,10 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: var(--tt-garnet-dk);
+    /* The only thing that can show here is a sliver at the foot of the hero
+       where the photograph stops short, so it matches the garnet of the
+       closer below rather than banding against it. */
+    background: var(--tt-garnet);
   }
   .hero-bg {
     position: absolute;
@@ -446,7 +449,11 @@ const stats: { to: number; suffix: string; label: string; ordinal?: boolean }[] 
       padding-inline: var(--gutter);
     }
     .band-flip .band-photo { order: 0; }
-    .band-text { padding: var(--sp-5) var(--gutter) var(--sp-6); }
+    /* Stacked, the photograph sits directly above the name it belongs to:
+       sp-6 under the frame plus sp-5 over the name left them reading as two
+       separate blocks. */
+    .band-photo { padding-block: var(--sp-5) var(--sp-2); }
+    .band-text { padding: var(--sp-2) var(--gutter) var(--sp-6); }
   }
 
   /* --- Scroll gear — a dial that reads scroll progress ------------ */
