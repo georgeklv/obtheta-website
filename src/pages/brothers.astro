@@ -2,46 +2,16 @@
 import Base from '../layouts/Base.astro';
 import roster from '../../data/brothers.json';
 
-// Executive board, in order of office. LinkedIn URLs and photographs have not
-// been supplied; the reveal pattern renders a link only when a URL exists.
-const eboard: { office: string; name: string; roll?: number; linkedin?: string }[] = [
-  { office: 'Regent', name: 'Charlie Felsburg', roll: 289 },
-  { office: 'Vice Regent', name: 'Jim Harding', roll: 274 },
-  { office: 'Marshal', name: 'Gavin Borbolla', roll: 283 },
-  { office: 'Scribe', name: 'Keegan Abbott', roll: 288 },
-  { office: 'Corresponding Secretary', name: 'Courtney Poppink' },
-];
-
 const brothers = roster.brothers;
 const maxRoll = Math.max(...brothers.map((b) => b.roll));
 const PAGE = 20;
 ---
 <Base
   title="Brothers — Theta Tau, Omicron Beta"
-  description={`The brothers of the Omicron Beta chapter of Theta Tau at UM-Dearborn: the executive board and the full chapter roster, rolls OB 1 to OB ${maxRoll}.`}
+  description={`The brothers of the Omicron Beta chapter of Theta Tau at UM-Dearborn: the full chapter roster, rolls OB 1 to OB ${maxRoll}.`}
 >
   <div class="page container">
     <h1 class="page-title">Brothers</h1>
-
-    <section data-reveal aria-labelledby="eboard-title">
-      <h2 id="eboard-title" class="section-title">Executive Board</h2>
-      <ul class="eboard">
-        {eboard.map((m, i) => (
-          <li class={`officer ${i < 2 ? 'officer-lg' : ''}`}>
-            <div class="photo-frame officer-photo">
-              <span>Photograph to come</span>
-            </div>
-            <h3 class="officer-name">{m.name}</h3>
-            <p class="officer-office">{m.office}</p>
-            {m.linkedin && (
-              <a class="officer-link" href={m.linkedin}>
-                LinkedIn<span class="visually-hidden"> — {m.name}</span>
-              </a>
-            )}
-          </li>
-        ))}
-      </ul>
-    </section>
 
     <section data-reveal aria-labelledby="roster-title">
       <h2 id="roster-title" class="section-title">Brother roster</h2>
@@ -87,44 +57,6 @@ const PAGE = 20;
     padding-bottom: var(--sp-3);
   }
   .section-title { margin-top: var(--sp-6); }
-
-  /* --- Eboard: 2 + 3, hierarchy follows office ------------------- */
-  .eboard {
-    list-style: none;
-    margin: var(--sp-4) 0 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: var(--sp-4);
-  }
-  .officer { grid-column: span 2; }
-  .officer-lg { grid-column: span 3; }
-  .officer-photo { aspect-ratio: 1; min-height: 0; }
-  .officer-name { margin-top: var(--sp-2); }
-  .officer-office {
-    font-family: var(--font-head);
-    font-size: var(--fs-ui);
-    color: var(--tt-ink);
-  }
-  .officer-link {
-    display: inline-block;
-    margin-top: var(--sp-1);
-    font-family: var(--font-head);
-    font-size: var(--fs-ui);
-    font-weight: 600;
-    color: var(--tt-garnet);
-  }
-  /* Reveal on hover and on focus; always present on touch */
-  @media (hover: hover) {
-    .officer-link { opacity: 0; }
-    .officer:hover .officer-link,
-    .officer-link:focus-visible { opacity: 1; }
-  }
-  @media (max-width: 47.9375rem) {
-    .eboard { grid-template-columns: 1fr 1fr; }
-    .officer, .officer-lg { grid-column: span 1; }
-    .officer-lg { grid-column: span 2; }
-  }
 
   /* --- Roster: a register ---------------------------------------- */
   .roster-search {
