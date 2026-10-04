@@ -13,7 +13,6 @@ const eboard: { office: string; name: string; roll?: number; linkedin?: string }
 ];
 
 const brothers = roster.brothers;
-const total = brothers.length;
 const maxRoll = Math.max(...brothers.map((b) => b.roll));
 const PAGE = 20;
 ---
@@ -45,12 +44,7 @@ const PAGE = 20;
     </section>
 
     <section data-reveal aria-labelledby="roster-title">
-      <h2 id="roster-title" class="section-title">Roster</h2>
-      <p class="roster-count">
-        Over 290 brothers initiated since 1988. {total} listed here, rolls OB 1
-        to OB {maxRoll}.
-      </p>
-
+      <h2 id="roster-title" class="section-title">Brother roster</h2>
       <div class="roster-search">
         <label for="roster-q">Search by name or roll</label>
         <input id="roster-q" type="search" autocomplete="off" spellcheck="false" />
@@ -133,14 +127,8 @@ const PAGE = 20;
   }
 
   /* --- Roster: a register ---------------------------------------- */
-  .roster-count {
-    font-family: var(--font-head);
-    font-size: var(--fs-ui);
-    color: var(--tt-ink);
-    margin-top: var(--sp-1);
-  }
   .roster-search {
-    margin-top: var(--sp-4);
+    margin-top: var(--sp-2);
     display: grid;
     gap: var(--sp-1);
     max-width: 24rem;
@@ -168,7 +156,7 @@ const PAGE = 20;
   }
   .roster {
     width: 100%;
-    margin-top: var(--sp-4);
+    margin-top: var(--sp-3);
     border-collapse: collapse;
   }
   .roster th {
