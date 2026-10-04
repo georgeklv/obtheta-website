@@ -6,6 +6,9 @@ The faint background wallpaper. Composed from four United States patent
 drawings, all published before 1929 and therefore in the public domain.
 Retrieved from Wikimedia Commons, converted to line art and tinted.
 
+The file itself lives in `src/img/`, not alongside this record: it is
+referenced from CSS, which needs a relative URL to survive the deploy base.
+
 | Drawing | Patent | Year | Commons file |
 | --- | --- | --- | --- |
 | Road engine (automobile) | US 549,160 — G. B. Selden | 1895 | `George B Selden Road engine Pat 549,160 drawing.png` |
