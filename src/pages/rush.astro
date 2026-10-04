@@ -125,21 +125,6 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
       )}
     </section>
 
-    <section class="container rush-section" data-reveal aria-labelledby="contact-title">
-      <h2 id="contact-title">Rush contacts</h2>
-      <ul class="contacts">
-        <li>
-          <span class="contact-name">Matthew Warra</span>
-          <a href="tel:+12489216547">(248) 921-6547</a>
-        </li>
-        <li>
-          <span class="contact-name">Colin Mack</span>
-          <a href="tel:+12485336473">(248) 533-6473</a>
-          <a href="mailto:csmack2004@gmail.com">csmack2004@gmail.com</a>
-        </li>
-      </ul>
-    </section>
-
     <section class="container rush-section rush-bottom" aria-label="Sign up">
       <div class="rush-actions">
         {actions.map((a) => (
@@ -316,18 +301,6 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
-
-  .contacts { list-style: none; margin: 0; padding: 0; }
-  .contacts li {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sp-3);
-    padding: var(--sp-2) 0;
-    border-bottom: 1px solid var(--rush-rule);
-    font-family: var(--font-head);
-    font-size: 1rem;
-  }
-  .contact-name { font-weight: 600; min-width: 10rem; }
 
   .rush-bottom { padding-bottom: var(--sp-6); }
 
