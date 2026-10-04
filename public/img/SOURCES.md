@@ -22,3 +22,13 @@ so the provenance is checkable.
 ## chapter-hero.webp
 
 Chapter group photograph, supplied by the chapter.
+
+## pillars/
+
+Chapter photographs, supplied by the chapter. Each is held at two widths,
+1280 and 720, and the band crops to 4:3 at display.
+
+| File | Subject |
+| --- | --- |
+| `profession-1` | The chapter in business formal, campus building lobby. |
+| `profession-2` | Brothers in visitor badges on a company tour. |
