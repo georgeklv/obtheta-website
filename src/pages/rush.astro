@@ -125,7 +125,7 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
       )}
     </section>
 
-    <section class="container rush-section rush-bottom" aria-label="Sign up">
+    <section class="container rush-section" aria-label="Sign up">
       <div class="rush-actions">
         {actions.map((a) => (
           <a class={`btn ${a.primary ? 'btn-primary' : 'btn-outline'}`} href={a.href}>{a.label}</a>
@@ -143,9 +143,10 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     color: var(--rush-fg);
     position: relative;
     overflow: clip;
-    /* pull flush against nav and footer */
+    /* pull flush against nav and footer; the footer's own top padding
+       supplies the breathing room under the last section */
     margin-bottom: calc(-1 * var(--sp-7));
-    padding-bottom: var(--sp-7);
+    padding-bottom: var(--sp-2);
   }
   .rush-page p { color: var(--rush-fg); }
 
@@ -301,8 +302,6 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
-
-  .rush-bottom { padding-bottom: var(--sp-6); }
 
   .rush-guide {
     position: fixed;
