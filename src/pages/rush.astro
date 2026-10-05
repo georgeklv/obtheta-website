@@ -112,7 +112,7 @@ const headline = `${rush.season.toUpperCase()} RUSH`;
               <p class="cal-date">{fmtDate(e.date)}</p>
               <h3 class="cal-name">{e.name}</h3>
               <p class="cal-meta">
-                {e.time && e.end ? `${fmtTime(e.time)} to ${fmtTime(e.end)}` : 'Time TBD'}
+                {e.time ? (e.end ? `${fmtTime(e.time)} to ${fmtTime(e.end)}` : fmtTime(e.time)) : 'Time TBD'}
               </p>
               <p class="cal-meta">{e.location}</p>
               {e.blurb && <p class="cal-blurb">{e.blurb}</p>}
