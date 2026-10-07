@@ -1,10 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import Roster from '../components/Roster.astro';
 import roster from '../../data/brothers.json';
 
 const brothers = roster.brothers;
 const maxRoll = Math.max(...brothers.map((b) => b.roll));
-const PAGE = 20;
 ---
 <Base
   title="Brothers | Theta Tau Omicron Beta"
@@ -15,34 +15,7 @@ const PAGE = 20;
 
     <section data-reveal aria-labelledby="roster-title">
       <h2 id="roster-title" class="section-title">Brother roster</h2>
-      <div class="roster-search">
-        <label for="roster-q">Search by name or roll</label>
-        <input id="roster-q" type="search" autocomplete="off" spellcheck="false" />
-      </div>
-
-      <p class="roster-empty" id="roster-empty" hidden>
-        No brothers match <q id="roster-empty-q"></q>.
-        <button type="button" class="roster-clear" id="roster-clear">Clear search</button>
-      </p>
-
-      <table class="roster" id="roster" data-page-size={PAGE}>
-        <thead>
-          <tr>
-            <th scope="col">Roll</th>
-            <th scope="col">Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {brothers.map((b) => (
-            <tr data-roll={b.roll} data-name={b.name.toLowerCase()}>
-              <td class="roll">OB {b.roll}</td>
-              <td class="name">{b.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <nav class="pages" id="pages" aria-label="Roster pages"></nav>
+      <Roster brothers={brothers} />
     </section>
   </div>
 </Base>
@@ -57,156 +30,4 @@ const PAGE = 20;
     padding-bottom: var(--sp-3);
   }
   .section-title { margin-top: var(--sp-6); }
-
-  /* --- Roster: a register ---------------------------------------- */
-  .roster-search {
-    margin-top: var(--sp-2);
-    display: grid;
-    gap: var(--sp-1);
-    max-width: 24rem;
-  }
-  .roster-search label {
-    font-family: var(--font-head);
-    font-size: var(--fs-ui);
-    font-weight: 600;
-  }
-  .roster-search input {
-    font-family: var(--font-head);
-    font-size: 1rem;
-    padding: 0.625rem 0.75rem;
-    border: 1px solid var(--tt-black);
-    border-radius: 0;
-    background: var(--tt-paper);
-  }
-  .roster-empty { margin-top: var(--sp-4); }
-  .roster-clear {
-    font-family: var(--font-head);
-    font-weight: 600;
-    color: var(--tt-garnet);
-    text-decoration: underline;
-    margin-left: 0.5rem;
-  }
-  .roster {
-    width: 100%;
-    margin-top: var(--sp-3);
-    border-collapse: collapse;
-  }
-  .roster th {
-    font-family: var(--font-head);
-    font-size: var(--fs-caption);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    text-align: left;
-    padding: 0 0 var(--sp-1);
-    border-bottom: var(--rule-strong);
-  }
-  .roster td {
-    padding: 0.625rem 0;
-    border-bottom: var(--rule-hairline);
-  }
-  .roll {
-    font-family: var(--font-head);
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    width: 7rem;
-    white-space: nowrap;
-  }
-  .name { font-size: var(--fs-body); }
-  tr[hidden] { display: none; }
-
-  /* --- Pagination ------------------------------------------------- */
-  .pages {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sp-1);
-    margin-top: var(--sp-4);
-  }
-  .pages button {
-    font-family: var(--font-head);
-    font-size: var(--fs-ui);
-    font-weight: 600;
-    min-width: 2.25rem;
-    padding: 0.375rem 0.5rem;
-    border: 1px solid var(--tt-black);
-    background: var(--tt-paper);
-    font-variant-numeric: tabular-nums;
-  }
-  .pages button[aria-current='page'] {
-    background: var(--tt-garnet);
-    border-color: var(--tt-garnet);
-    color: var(--tt-white);
-  }
-  .pages button:hover:not([aria-current='page']) {
-    background: var(--tt-black);
-    color: var(--tt-white);
-  }
 </style>
-
-<script>
-  const table = document.getElementById('roster') as HTMLTableElement;
-  const rows = Array.from(table.tBodies[0].rows);
-  const pageSize = Number(table.dataset.pageSize);
-  const pagesNav = document.getElementById('pages')!;
-  const input = document.getElementById('roster-q') as HTMLInputElement;
-  const empty = document.getElementById('roster-empty')!;
-  const emptyQ = document.getElementById('roster-empty-q')!;
-  const clearBtn = document.getElementById('roster-clear')!;
-
-  let page = 0;
-
-  const render = () => {
-    const q = input.value.trim().toLowerCase();
-    const matches = q
-      ? rows.filter(
-          (r) => r.dataset.name!.includes(q) || r.dataset.roll!.includes(q)
-        )
-      : rows;
-
-    rows.forEach((r) => (r.hidden = true));
-    if (q) {
-      // A search shows every match at once; paging applies to the full register.
-      matches.forEach((r) => (r.hidden = false));
-      pagesNav.hidden = true;
-    } else {
-      const start = page * pageSize;
-      matches.slice(start, start + pageSize).forEach((r) => (r.hidden = false));
-      pagesNav.hidden = false;
-      renderPager(Math.ceil(matches.length / pageSize));
-    }
-
-    const none = q !== '' && matches.length === 0;
-    empty.hidden = !none;
-    emptyQ.textContent = q;
-    table.hidden = none;
-  };
-
-  const renderPager = (count: number) => {
-    pagesNav.replaceChildren(
-      ...Array.from({ length: count }, (_, i) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.textContent = String(i + 1);
-        b.setAttribute('aria-label', `Page ${i + 1}`);
-        if (i === page) b.setAttribute('aria-current', 'page');
-        b.addEventListener('click', () => {
-          page = i;
-          render();
-          table.scrollIntoView();
-        });
-        return b;
-      })
-    );
-  };
-
-  input.addEventListener('input', () => {
-    page = 0;
-    render();
-  });
-  clearBtn.addEventListener('click', () => {
-    input.value = '';
-    render();
-    input.focus();
-  });
-  render();
-</script>

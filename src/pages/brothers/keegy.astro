@@ -1,0 +1,56 @@
+---
+/*
+  The unlisted register. Same page as /brothers with the nickname column
+  turned on: not in the navigation, not in the sitemap, and noindex. It is
+  secret by obscurity only — a static site cannot gate a page, so anyone
+  holding the link can read it. /keegy redirects here, so the short link
+  still works.
+
+  The path is deliberately absent from robots.txt: that file is public, and
+  naming the route there would hand it to anyone who looked.
+*/
+import Base from '../../layouts/Base.astro';
+import Roster from '../../components/Roster.astro';
+import roster from '../../../data/brothers.json';
+import nicknameData from '../../../data/nicknames.json';
+
+const brothers = roster.brothers;
+const nicknames: Record<string, string> = nicknameData.nicknames;
+---
+<Base
+  title="Brothers, with nicknames | Theta Tau Omicron Beta"
+  description="The Omicron Beta register with chapter nicknames. Unlisted page."
+  noindex
+>
+  <div class="page container">
+    <h1 class="page-title">Brothers, with nicknames</h1>
+
+    <section data-reveal aria-labelledby="roster-title">
+      <h2 id="roster-title" class="section-title">Brother roster</h2>
+      <p class="unlisted">
+        An unlisted page — it is not in the navigation, not in the sitemap, and
+        asks search engines to leave it out. Anyone with the link can read it.
+      </p>
+      <Roster brothers={brothers} nicknames={nicknames} />
+    </section>
+  </div>
+</Base>
+
+<style>
+  .page { padding-top: var(--sp-6); }
+  .page-title {
+    font-size: var(--fs-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    border-bottom: var(--rule-strong);
+    padding-bottom: var(--sp-3);
+  }
+  .section-title { margin-top: var(--sp-6); }
+  .unlisted {
+    max-width: 44ch;
+    margin-top: var(--sp-2);
+    padding-left: var(--sp-2);
+    border-left: var(--rule-mark);
+    font-size: var(--fs-ui);
+  }
+</style>

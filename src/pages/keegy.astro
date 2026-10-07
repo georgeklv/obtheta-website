@@ -1,0 +1,27 @@
+---
+/*
+  The short link. The page itself lives at /brothers/keegy, where it belongs
+  next to the register it extends; this keeps the shorter path working for
+  anyone who was given it. Deliberately not in the sitemap or robots.txt.
+
+  A meta refresh rather than a server redirect: GitHub Pages serves static
+  files only. The link below is the fallback if the refresh is blocked.
+*/
+import { withBase } from '../lib/paths';
+
+const target = withBase('/brothers/keegy');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Brothers, with nicknames | Theta Tau Omicron Beta</title>
+    <link rel="canonical" href={new URL(target, Astro.site)} />
+  </head>
+  <body>
+    <p><a href={target}>Brothers, with nicknames</a></p>
+  </body>
+</html>

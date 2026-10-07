@@ -1,0 +1,7 @@
+{
+  "note": "Roll number -> nickname, shown only on the unlisted /keegy roster. Supplied by the chapter; nothing here is guessed.",
+  "source": "roll 195 is the parenthetical already carried in data/brothers.json; the rest awaits the chapter's list",
+  "nicknames": {
+    "195": "Kwan"
+  }
+}
